@@ -120,9 +120,9 @@ class WPHCFilterHook{
         if (!defined('WPHC_CUSTOM_REQUEST_URL')) {
             $abspath = rtrim(ABSPATH, "/");
             if (strpos($_SERVER["DOCUMENT_ROOT"], '.valet') != false) {
-                define('WPHC_CUSTOM_REQUEST_URL', 'http://' . $_SERVER['HTTP_HOST']);
+                define('WPHC_CUSTOM_REQUEST_URL', 'https://' . $_SERVER['HTTP_HOST']);
             } else {
-                define('WPHC_CUSTOM_REQUEST_URL', 'http://' . $_SERVER['HTTP_HOST'] . str_replace($_SERVER["DOCUMENT_ROOT"], '', $abspath));
+                define('WPHC_CUSTOM_REQUEST_URL', 'https://' . $_SERVER['HTTP_HOST'] . str_replace($_SERVER["DOCUMENT_ROOT"], '', $abspath));
             }
 
             if (!defined('WP_SITEURL')) {
