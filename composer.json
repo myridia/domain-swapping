@@ -1,0 +1,18 @@
+{
+    "name": "iqonic/wphost-changer",
+    "description": "WPMultiHost plugin",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Iqonic Developer",
+            "email": "support@iqonic.design"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Wphc\\App\\": "./app"
+        }
+    }
+}
