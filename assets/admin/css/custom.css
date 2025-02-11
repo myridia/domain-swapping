@@ -1,0 +1,12 @@
+.page-header {
+    display: flex;
+    align-items: center;
+}
+.page-header img{
+    height: 50px;
+    width: 50px;
+}
+.page-header h3{
+    margin-bottom: 0;
+    margin-left: 15px;
+}
