@@ -116,7 +116,8 @@ class WPHCFilterHook{
      */
     function wphc_custom_siteurl()
     {
-        $_SERVER['HTTP_HOST'] = "se.shock.se";        
+        
+        $_SERVER['HTTP_HOST'] = $_SERVER['SERVER_NAME'];
         if (!defined('WPHC_CUSTOM_REQUEST_URL')) {
             $abspath = rtrim(ABSPATH, "/");
             if (strpos($_SERVER["DOCUMENT_ROOT"], '.valet') != false) {
