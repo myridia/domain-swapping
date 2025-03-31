@@ -90,6 +90,7 @@ if (!empty($options1)) {
 
 if(!empty($options1['enablehostchanger']) && $options1['enablehostchanger'] === 'on' )
 {
+    $_SERVER['HTTP_HOST'] =	$_SERVER['SERVER_NAME'];
 
     if (!empty($options1['include']) && in_array($_SERVER['HTTP_HOST'], $options1['include'])) {
         (new WPHCFilterHook)->run();
