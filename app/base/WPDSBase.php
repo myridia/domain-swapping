@@ -100,13 +100,13 @@ class WPDSBase
         ?>
         <tr>
             <th>
-                <label for="enablehostchanger">
-                    <?php echo esc_html__('Enable Multiple Domains','host-changer') ?>
+                <label for="enableds">
+                    <?php echo esc_html__('Enable Domain Swapping','domain-swapping') ?>
                 </label>
             </th>
             <td>
-                <input id="enablehostchanger" name="wpdssetting_option[enablehostchanger]" type="checkbox" <?php echo (isset($options1['enablehostchanger']) && $options1['enablehostchanger'] === 'on'  ? ' checked=checked ' : '') ; ?> >
-                <p class="description text-muted" id="enablehostchanger-description"><?php echo esc_html__('If you are Enabling Multiple Domains and not in the main domain, Then first add your domain in the Allowed host and save settings before enabling.','host-changer') ?></p>
+                <input id="enableds" name="wpdssetting_option[enableew]" type="checkbox" <?php echo (isset($options1['enableds']) && $options1['enableds'] === 'on'  ? ' checked=checked ' : '') ; ?> >
+                <p class="description text-muted" id="enableds-description"><?php echo esc_html__('If you are Enabling Domain Swapping and not in the main domain, then first add your domain in the Allowed host and save settings before enabling.','domain-swapping') ?></p>
             </td>
         </tr>
         <?php

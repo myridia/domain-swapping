@@ -57,12 +57,12 @@ if (!defined('WPDS_PREFIX')) {
     define('WPDS_PREFIX', "wpds");
 }
 
-function activate_wphost_change_plugin()
+function activate_wpds_plugin()
 {
     (new WPDSActivate())->activate();
 }
 
-function deactivate_wphost_change_plugin()
+function deactivate_wpds_plugin()
 {
     (new WPDSDeactivate())->deactivate();
 }
@@ -70,12 +70,12 @@ function deactivate_wphost_change_plugin()
 /**
  * The code that runs during plugin activation
  */
-register_activation_hook(__FILE__, 'activate_wphost_change_plugin');
+register_activation_hook(__FILE__, 'activate_wpds_plugin');
 
 /**
  * The code that runs during plugin deactivation
  */
-register_deactivation_hook(__FILE__, 'deactivate_wphost_change_plugin');
+register_deactivation_hook(__FILE__, 'deactivate_wpds_plugin');
 
 (new WPDSBase())->register();
 
@@ -90,7 +90,7 @@ if (!empty($options1)) {
     $options1['include'][] = $site_url;
 }
 
-if(!empty($options1['enablehostchanger']) && $options1['enablehostchanger'] === 'on' )
+if(!empty($options1['enableds']) && $options1['enableds'] === 'on' )
 {
     $_SERVER['HTTP_HOST'] =	$_SERVER['SERVER_NAME'];
 
