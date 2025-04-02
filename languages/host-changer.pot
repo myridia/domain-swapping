@@ -91,5 +91,5 @@ msgid ""
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "iqonic"
+msgid "Myridia"
 msgstr ""
