@@ -1,5 +1,5 @@
 <?php
-namespace MK\MyPlugin\Main;
+namespace WP\DS\Main;
 
  
 

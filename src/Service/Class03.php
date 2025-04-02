@@ -1,6 +1,6 @@
 <?php
 
-namespace MK\MyPlugin\Service;
+namespace WP\Ds\Service;
 
  
 
