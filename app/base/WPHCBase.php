@@ -1,6 +1,6 @@
 <?php
 
-namespace Wphc\App\base;
+namespace Domain-swapping\App\base;
 
 defined('ABSPATH') or die('Something went wrong');
 
@@ -10,11 +10,11 @@ defined('ABSPATH') or die('Something went wrong');
  * A class definition that includes attributes and functions used across both the
  * public-facing side of the site and the admin line.
  *
- * @link       https://iqonic.design
+ * @link       https://myridia.com
  * @since      1.0.1
  *
- * @package    Wphc
- * @subpackage Wphc/App/base
+ * @package    Domain-swapping
+ * @subpackage Domain-swapping/App/base
  */
 
 /**
@@ -27,9 +27,9 @@ defined('ABSPATH') or die('Something went wrong');
  * version of the plugin.
  *
  * @since      1.0.1
- * @package    Wphc
- * @subpackage Wphc/App/base
- * @author     Iqonic Design < hello@iqonic.design>
+ * @package    Domain-swapping
+ * @subpackage Domain-swapping/App/base
+ * @author     Myridia <info@myridia.com>
  */
 
 class WPHCBase

@@ -20,9 +20,9 @@ defined('ABSPATH') or die('Something went wrong');
  * This class defines all code necessary to run during the plugin's activation.
  *
  * @since      1.0.1
- * @package    Wphc
- * @subpackage Wphc/App/base
- * @author     Iqonic Design <hello@iqonic.design>
+ * @package    Domain-swapping
+ * @subpackage Domain-swapping/App/base
+ * @author     info@myridia.com
  */
 
 class WPHCActivate

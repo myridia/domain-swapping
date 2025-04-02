@@ -1,6 +1,6 @@
 <?php
 
-namespace Wphc\App\filters;
+namespace Domain-swapping\App\filters;
 
 defined('ABSPATH') or die('Something went wrong');
 
@@ -13,8 +13,8 @@ defined('ABSPATH') or die('Something went wrong');
  * @link       https://iqonic.design/
  * @since      1.0.1
  *
- * @package    Wphc
- * @subpackage Wphc/App/filters
+ * @package    Domain-swapping
+ * @subpackage Domain-swapping/App/filters
  */
 
 /**
@@ -27,9 +27,9 @@ defined('ABSPATH') or die('Something went wrong');
  * version of the plugin.
  *
  * @since      1.0.1
- * @package    Wphc
- * @subpackage Wphc/App/filters
- * @author     Iqonic Design <hello@iqonic.design>
+ * @package    Domain-swapping
+ * @subpackage Domain-swapping/App/filters
+ * @author     Myridia <info@myridia.com>
  */
 
 class WPHCFilterHook{

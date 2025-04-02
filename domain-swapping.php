@@ -9,8 +9,8 @@
  * Hard Fork from https://wordpress.org/plugins/host-changer/
  *
  * @link              https://domain-swapping.myridia.com
- * @since             1.0.1
- * @package           domain-swapping
+ * @since             1.0.0
+ * @package           Domain-swapping
  *
  * @wordpress-plugin
  * Plugin Name: Domain swapping - Use and swap multiple domains with one WordPress Site 
@@ -29,10 +29,10 @@
 
 defined('ABSPATH') or die('Something went wrong');
 
-use Wphc\App\base\WPHCActivate;
-use Wphc\App\base\WPHCDeactivate;
-use Wphc\App\base\WPHCBase;
-use Wphc\App\filters\WPHCFilterHook;
+use Domain-swapping\App\base\WPHCActivate;
+use Domain-swapping\App\base\WPHCDeactivate;
+use Domain-swapping\App\base\WPHCBase;
+use Domain-swapping\App\filters\WPHCFilterHook;
 
 // Require once the Composer Autoload
 if (file_exists(dirname(__FILE__) . '/vendor/autoload.php')) {

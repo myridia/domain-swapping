@@ -19,10 +19,10 @@
  * For more information, see the following discussion:
  * https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate/pull/123#issuecomment-28541913
  *
- * @link       http://wordpress.test/
- * @since      1.0.1
+ * @link       http://domain-swapping.myridia.com/
+ * @since      1.0.0
  *
- * @package    Wpchange_Host
+ * @package    Domain-swapping
  */
 
 // If uninstall not called from WordPress, then exit.

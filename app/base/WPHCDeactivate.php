@@ -1,16 +1,16 @@
 <?php
 
-namespace Wphc\App\base;
+namespace Domain-swapping\App\base;
 
 defined( 'ABSPATH' ) or die( 'Something went wrong' );
 
 /**
  * Fired during plugin deactivation
  *
- * @link       https://iqonic.design/
- * @since      1.0.1
+ * @link       https://myridia.com
+ * @since      1.0.0
  *
- * @package    Wphc
+ * @package    Domain-swapping
  * @subpackage Wphc/App/base
  */
 
@@ -20,9 +20,9 @@ defined( 'ABSPATH' ) or die( 'Something went wrong' );
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.1
- * @package    Wphc
- * @subpackage Wphc/App/base
- * @author     Iqonic Design <hello@iqonic.design>
+ * @package    Domain-swapping
+ * @subpackage Domain-swapping/App/base
+ * @author     Myridia <info@myridia.com>
  */
 
 class WPHCDeactivate{
