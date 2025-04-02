@@ -5,44 +5,44 @@
          * Add Clone
          */
 
-        $(document).on('click',".wphc_include_btn_new_row", function(e)
+        $(document).on('click',".wpdsinclude_btn_new_row", function(e)
         {
-            wphc_clone_row('include',wphc_localize.allow_host);
+            wpdsclone_row('include',wpdslocalize.allow_host);
         });
 
-        $(document).on('click',".wphc_exclude_btn_new_row", function(e)
+        $(document).on('click',".wpdsexclude_btn_new_row", function(e)
         {
-            wphc_clone_row('exclude',wphc_localize.allow_host);
+            wpdsclone_row('exclude',wpdslocalize.allow_host);
         });
 
 
         /******************
          * Remove Clone
          */
-        $(document).on('click',".wphc_btn_row_delete", function(e)
+        $(document).on('click',".wpdsbtn_row_delete", function(e)
         {
             $(this).closest('tr').remove();
-            wphc_hide_row_delete_btn('include')
-            wphc_hide_row_delete_btn('exclude')
+            wpdshide_row_delete_btn('include')
+            wpdshide_row_delete_btn('exclude')
         });
 
-        function wphc_show_row_delete_btn(type){
-            if ($(document).find('.wphc_tbl_' + type).find("tr").length > 2)
+        function wpdsshow_row_delete_btn(type){
+            if ($(document).find('.wpdstbl_' + type).find("tr").length > 2)
             {
-                $(document).find('.wphc_tbl_' + type).find('.wphc_btn_row_delete').show();
+                $(document).find('.wpdstbl_' + type).find('.wpdsbtn_row_delete').show();
             }else{
-                $(document).find('.wphc_tbl_' + type).find('.wphc_btn_row_delete').hide();
+                $(document).find('.wpdstbl_' + type).find('.wpdsbtn_row_delete').hide();
             }
         }
 
-        function wphc_hide_row_delete_btn(type){
-            if ($(document).find('.wphc_tbl_' + type).find("tr").length < 3) {
-                $(document).find('.wphc_tbl_' + type).find('.wphc_btn_row_delete').hide();
+        function wpdshide_row_delete_btn(type){
+            if ($(document).find('.wpdstbl_' + type).find("tr").length < 3) {
+                $(document).find('.wpdstbl_' + type).find('.wpdsbtn_row_delete').hide();
             }
         }
 
-        function wphc_clone_row(type ,heading){
-            var tableBody = $(document).find('.wphc_tbl_' + type);
+        function wpdsclone_row(type ,heading){
+            var tableBody = $(document).find('.wpdstbl_' + type);
             var trlength=tableBody.find("tr");
             if (trlength.length > 1) {
                 var trFirst = tableBody.find("tr:first");
@@ -53,9 +53,9 @@
                 tableBody.find("tr:last").prev().after(trNew);
             }
             else {
-                alert(wphc_localize.no_item);
+                alert(wpdslocalize.no_item);
             }
-            wphc_show_row_delete_btn(type);
+            wpdsshow_row_delete_btn(type);
         }
 
     });

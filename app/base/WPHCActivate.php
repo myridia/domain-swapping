@@ -39,8 +39,8 @@ class WPHCActivate
             'include' => [],
         );
 
-        if (false == get_option('wphc_setting_option')) {
-            update_option('wphc_setting_option', $default_options);
+        if (false == get_option('wpdssetting_option')) {
+            update_option('wpdssetting_option', $default_options);
         }
     }
 }

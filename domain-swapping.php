@@ -54,7 +54,7 @@ if (!defined('WPHC_BASENAME')) {
 }
 
 if (!defined('WPHC_PREFIX')) {
-    define('WPHC_PREFIX', "wphc_");
+    define('WPHC_PREFIX', "wpds");
 }
 
 function activate_wphost_change_plugin()
@@ -79,8 +79,8 @@ register_deactivation_hook(__FILE__, 'deactivate_wphost_change_plugin');
 
 (new WPHCBase())->register();
 
-$options1 = get_option('wphc_setting_option');
-$site_url = (new WPHCFilterHook)->wphc_get_old_url();
+$options1 = get_option('wpdssetting_option');
+$site_url = (new WPHCFilterHook)->wpdsget_old_url();
 $site_url = parse_url($site_url);
 $site_url = $site_url['host'];
 

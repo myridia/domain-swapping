@@ -41,24 +41,24 @@ class WPHCFilterHook{
 
     public function run()
     {
-        //add_action('registered_taxonomy', array($this, 'wphc_buffer_start_relative_url'));
-        //add_action('shutdown', array($this, 'wphc_buffer_end_relative_url'));
-        add_filter('pre_option_home', array($this, 'wphc_custom_siteurl'));
-        add_filter('pre_option_siteurl', array($this, 'wphc_custom_siteurl'));
-        add_filter('option_home', array($this, 'wphc_custom_content_url'));
-        add_filter('option_siteurl', array($this, 'wphc_custom_content_url'));
-        add_filter('stylesheet_directory_uri', array($this, 'wphc_custom_style_uri'));
-        add_filter('stylesheet_directory', array($this, 'wphc_custom_style_uri'));
-        add_filter('template_directory_uri', array($this, 'wphc_custom_style_uri'));
-        add_filter('plugins_url', array($this, 'wphc_custom_content_url'));
-        add_filter('content_url', array($this, 'wphc_custom_content_url'));
-        add_filter('the_content', array($this, 'wphc_custom_content_url'));
-        add_filter('style_loader_src', array($this, 'wphc_custom_content_url'), 10, 4);
-        add_filter('script_loader_src', array($this, 'wphc_custom_content_url'), 10, 4);
-        add_filter('upload_dir', array($this, 'wphc_custom_featured_img_url'));
-        add_filter('wp_get_attachment_url', array($this, 'wphc_custom_attachment_url'));
-        add_filter('get_the_guid', array( $this, 'wphc_custom_content_url'));
-        add_filter( 'avatar_defaults', array( $this, 'wphc_custom_content_url') );
+        //add_action('registered_taxonomy', array($this, 'wpdsbuffer_start_relative_url'));
+        //add_action('shutdown', array($this, 'wpdsbuffer_end_relative_url'));
+        add_filter('pre_option_home', array($this, 'wpdscustom_siteurl'));
+        add_filter('pre_option_siteurl', array($this, 'wpdscustom_siteurl'));
+        add_filter('option_home', array($this, 'wpdscustom_content_url'));
+        add_filter('option_siteurl', array($this, 'wpdscustom_content_url'));
+        add_filter('stylesheet_directory_uri', array($this, 'wpdscustom_style_uri'));
+        add_filter('stylesheet_directory', array($this, 'wpdscustom_style_uri'));
+        add_filter('template_directory_uri', array($this, 'wpdscustom_style_uri'));
+        add_filter('plugins_url', array($this, 'wpdscustom_content_url'));
+        add_filter('content_url', array($this, 'wpdscustom_content_url'));
+        add_filter('the_content', array($this, 'wpdscustom_content_url'));
+        add_filter('style_loader_src', array($this, 'wpdscustom_content_url'), 10, 4);
+        add_filter('script_loader_src', array($this, 'wpdscustom_content_url'), 10, 4);
+        add_filter('upload_dir', array($this, 'wpdscustom_featured_img_url'));
+        add_filter('wp_get_attachment_url', array($this, 'wpdscustom_attachment_url'));
+        add_filter('get_the_guid', array( $this, 'wpdscustom_content_url'));
+        add_filter( 'avatar_defaults', array( $this, 'wpdscustom_content_url') );
     }
 
     /**
@@ -66,11 +66,11 @@ class WPHCFilterHook{
      * @param $url
      * @return string|string[]
      */
-    function wphc_custom_attachment_url($url)
+    function wpdscustom_attachment_url($url)
     {
         $var = explode('/wp-content', $url);
 
-        $url = str_replace($var[0], $this->wphc_get_new_url(), $url);
+        $url = str_replace($var[0], $this->wpdsget_new_url(), $url);
         return $url;
     }
 
@@ -79,12 +79,12 @@ class WPHCFilterHook{
      * @param $url
      * @return string|string[]
      */
-    function wphc_custom_content_url($url)
+    function wpdscustom_content_url($url)
     {
-        $old_url_parse = parse_url($this->wphc_get_old_url());
+        $old_url_parse = parse_url($this->wpdsget_old_url());
         $src_parse = parse_url($url);
         if (isset($src_parse['host']) && $src_parse['host'] == $old_url_parse['host']) {
-            $url = str_replace($this->wphc_get_old_url(), $this->wphc_get_new_url(), $url);
+            $url = str_replace($this->wpdsget_old_url(), $this->wpdsget_new_url(), $url);
             return $url;
         }
 
@@ -94,7 +94,7 @@ class WPHCFilterHook{
     /**
      * get new site url
      */
-    function wphc_get_new_url()
+    function wpdsget_new_url()
     {
         $new_url = get_option('siteurl');
         //print_r($new_url);
@@ -105,7 +105,7 @@ class WPHCFilterHook{
      * get old site url
      */
 
-    function wphc_get_old_url(){
+    function wpdsget_old_url(){
         global $wpdb;
         $old_url=$wpdb->get_var( "SELECT option_value from wp9735options where option_name= 'siteurl'" ) ;
         return $old_url;
@@ -114,7 +114,7 @@ class WPHCFilterHook{
     /**
      * change home and siteurl value
      */
-    function wphc_custom_siteurl()
+    function wpdscustom_siteurl()
     {
         
         $_SERVER['HTTP_HOST'] = $_SERVER['SERVER_NAME'];
@@ -141,9 +141,9 @@ class WPHCFilterHook{
      * @param $stylesheet_dir_uri
      * @return string|string[]
      */
-    public function wphc_custom_style_uri($stylesheet_dir_uri)
+    public function wpdscustom_style_uri($stylesheet_dir_uri)
     {
-        $stylesheet_dir_uri = $this->wphc_custom_content_url($stylesheet_dir_uri);
+        $stylesheet_dir_uri = $this->wpdscustom_content_url($stylesheet_dir_uri);
         return $stylesheet_dir_uri;
     }
 
@@ -151,7 +151,7 @@ class WPHCFilterHook{
      * @param $buffer
      * @return string|string[]
      */
-    function wphc_relative_url($buffer)
+    function wpdsrelative_url($buffer)
     {
         // Replace normal URLs
         $home_url = esc_url(home_url('/'));
@@ -168,12 +168,12 @@ class WPHCFilterHook{
     }
 
 
-    public function wphc_buffer_start_relative_url()
+    public function wpdsbuffer_start_relative_url()
     {
-        ob_start(array($this, 'wphc_relative_url'));
+        ob_start(array($this, 'wpdsrelative_url'));
     }
 
-    public function wphc_buffer_end_relative_url()
+    public function wpdsbuffer_end_relative_url()
     {
         @ob_end_flush();
     }
@@ -183,9 +183,9 @@ class WPHCFilterHook{
      * @param $src
      * @return string|string[]
      */
-    public function wphc_custom_featured_img_url($src)
+    public function wpdscustom_featured_img_url($src)
     {
-        $src = str_replace($this->wphc_get_old_url(), $this->wphc_get_new_url(), $src);
+        $src = str_replace($this->wpdsget_old_url(), $this->wpdsget_new_url(), $src);
         return $src;
     }
 }

@@ -43,15 +43,15 @@ class WPHCBase
 
     function register()
     {
-        add_action('admin_menu', array($this, 'wphc_admin_menu'));
-        add_filter("plugin_action_links_$this->plugin_name", array($this, 'wphc_settings_link'));
-        add_action('admin_init', array($this, 'wphc_admin_setting'));
-        add_action( 'admin_enqueue_scripts', array( $this, 'wphc_enqueueStyles' ) );
-        add_action( 'admin_enqueue_scripts', array( $this, 'wphc_enqueueScripts' ) );
+        add_action('admin_menu', array($this, 'wpdsadmin_menu'));
+        add_filter("plugin_action_links_$this->plugin_name", array($this, 'wpdssettings_link'));
+        add_action('admin_init', array($this, 'wpdsadmin_setting'));
+        add_action( 'admin_enqueue_scripts', array( $this, 'wpdsenqueueStyles' ) );
+        add_action( 'admin_enqueue_scripts', array( $this, 'wpdsenqueueScripts' ) );
         load_plugin_textdomain('host-changer',false, dirname(WPHC_BASENAME). '/languages/'	);  
     }
 
-    public function wphc_admin_menu()
+    public function wpdsadmin_menu()
     {
         add_submenu_page(
             'tools.php',
@@ -59,44 +59,44 @@ class WPHCBase
             esc_html__('WPMultiHost','host-changer'),
             'read',
             'host-changer',
-            array($this, 'wphc_admin_dashboard')
+            array($this, 'wpdsadmin_dashboard')
         );
     }
 
-    public function wphc_admin_dashboard()
+    public function wpdsadmin_dashboard()
     {
         require_once(WPHC_DIR_PATH . 'assets/admin/settings.php');
     }
 
-    public function wphc_settings_link($links)
+    public function wpdssettings_link($links)
     {
         $settings_link = '<a href="' . admin_url('tools.php?page=host-changer') . '">'.esc_html__('Settings','host-changer').'</a>';
         array_unshift($links, $settings_link);
         return $links;
     }
 
-    public function wphc_admin_setting()
+    public function wpdsadmin_setting()
     {
         $default_options = array(
             'include' => [],
         );
 
-        if (false == get_option('wphc_setting_option')) {
+        if (false == get_option('wpdssetting_option')) {
 
-           add_option('wphc_setting_option');
-           update_option('wphc_setting_option', $default_options);
+           add_option('wpdssetting_option');
+           update_option('wpdssetting_option', $default_options);
         }
 
-        add_settings_section('wphc_setting_section', '', '', 'hostchanger-setting-panel');
-        register_setting('wphc_setting_option', 'wphc_setting_option');
-        add_settings_field('wphc_setting_enable_field', '', array($this, 'wphc_setting_enable_field'), 'hostchanger-setting-panel', 'wphc_setting_section');
-        add_settings_field('wphc_setting_field', '', array($this, 'wphc_add_setting_field'), 'hostchanger-setting-panel', 'wphc_setting_section');
+        add_settings_section('wpdssetting_section', '', '', 'hostchanger-setting-panel');
+        register_setting('wpdssetting_option', 'wpdssetting_option');
+        add_settings_field('wpdssetting_enable_field', '', array($this, 'wpdssetting_enable_field'), 'hostchanger-setting-panel', 'wpdssetting_section');
+        add_settings_field('wpdssetting_field', '', array($this, 'wpdsadd_setting_field'), 'hostchanger-setting-panel', 'wpdssetting_section');
 
     }
 
-    public function wphc_setting_enable_field()
+    public function wpdssetting_enable_field()
     {
-        $options1 = get_option('wphc_setting_option');
+        $options1 = get_option('wpdssetting_option');
         ?>
         <tr>
             <th>
@@ -105,32 +105,32 @@ class WPHCBase
                 </label>
             </th>
             <td>
-                <input id="enablehostchanger" name="wphc_setting_option[enablehostchanger]" type="checkbox" <?php echo (isset($options1['enablehostchanger']) && $options1['enablehostchanger'] === 'on'  ? ' checked=checked ' : '') ; ?> >
+                <input id="enablehostchanger" name="wpdssetting_option[enablehostchanger]" type="checkbox" <?php echo (isset($options1['enablehostchanger']) && $options1['enablehostchanger'] === 'on'  ? ' checked=checked ' : '') ; ?> >
                 <p class="description text-muted" id="enablehostchanger-description"><?php echo esc_html__('If you are Enabling Multiple Domains and not in the main domain, Then first add your domain in the Allowed host and save settings before enabling.','host-changer') ?></p>
             </td>
         </tr>
         <?php
     }
 
-    public function wphc_add_setting_field()
+    public function wpdsadd_setting_field()
     {
         require_once(WPHC_DIR_PATH . 'assets/admin/setting_fields.php');
     }
 
-    public function wphc_enqueueStyles() {
+    public function wpdsenqueueStyles() {
         global $pagenow;
         if($pagenow === 'tools.php'  &&  !empty($_GET['page'])  &&  $_GET['page'] === 'host-changer') {
-            wp_enqueue_style('wphc_bootstrap_css', WPHC_DIR_URI . 'assets/admin/css/bootstrap.min.css', '1.0.1');
-            wp_enqueue_style('wphc_custom_css', WPHC_DIR_URI . 'assets/admin/css/custom.css', '1.0.1');
+            wp_enqueue_style('wpdsbootstrap_css', WPHC_DIR_URI . 'assets/admin/css/bootstrap.min.css', '1.0.1');
+            wp_enqueue_style('wpdscustom_css', WPHC_DIR_URI . 'assets/admin/css/custom.css', '1.0.1');
         }
     }
 
 
-    public function wphc_enqueueScripts()
+    public function wpdsenqueueScripts()
     {
-        wp_enqueue_script('wphc_bootstrap_js', WPHC_DIR_URI . 'assets/admin/js/bootstrap.min.js', ['jquery'], '1.0.1', true);
-        wp_enqueue_script('wphc_custom', WPHC_DIR_URI . 'assets/admin/js/custom.js', ['jquery'], '1.0.1', true);
-        wp_localize_script('wphc_custom', 'wphc_localize', array(
+        wp_enqueue_script('wpdsbootstrap_js', WPHC_DIR_URI . 'assets/admin/js/bootstrap.min.js', ['jquery'], '1.0.1', true);
+        wp_enqueue_script('wpdscustom', WPHC_DIR_URI . 'assets/admin/js/custom.js', ['jquery'], '1.0.1', true);
+        wp_localize_script('wpdscustom', 'wpdslocalize', array(
             'allow_host' => esc_html__('Allowed Host','host-changer'),
             'no_item' => esc_html__('No Item Found Refresh your page and try again.','host-changer')
         ));

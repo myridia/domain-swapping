@@ -30,6 +30,6 @@ class WPHCDeactivate{
     }
 
     public function deactivate(){
-        delete_option('wphc_setting_option');
+        delete_option('wpdssetting_option');
     }
 }

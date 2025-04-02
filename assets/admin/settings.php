@@ -6,7 +6,7 @@
 <?php settings_errors(); ?>
 <form action="options.php" method="post">
     <?php
-    settings_fields('wphc_setting_option');
+    settings_fields('wpdssetting_option');
     do_settings_sections('hostchanger-setting-panel');
     submit_button(esc_html__('Save Settings', 'host-changer'));
     ?>
