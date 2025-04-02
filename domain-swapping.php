@@ -13,16 +13,17 @@
  * @package           domain-swapping
  *
  * @wordpress-plugin
- * Plugin Name: domain-swapping - 1 WordPress Site with Multiple Domains
- * Plugin URI: http://iqonic.design/
+ * Plugin Name: Domain swapping - Use and swap multiple domains with one WordPress Site 
+ * Plugin URI: https://wordpress.org/plugins/domain-swapping 
  * Description: domain_swapping to access same WordPress site from different domains.
- * Version: 1.0.2
+ * Version: 1.0.0
  * Author: Myridia Company
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: domain-swapping
  * Domain Path: /languages
  * Author URI: http://myridia.com
+ * Update URL: https://github.com/myridia/domain-swapping 
  **/
 
 
