@@ -1,38 +1,10 @@
 <?php
 
-namespace Domain-swapping\App\base;
+namespace Wpds\App\base;
 
 defined('ABSPATH') or die('Something went wrong');
 
-/**
- * The file that defines the core plugin class
- *
- * A class definition that includes attributes and functions used across both the
- * public-facing side of the site and the admin line.
- *
- * @link       https://myridia.com
- * @since      1.0.1
- *
- * @package    Domain-swapping
- * @subpackage Domain-swapping/App/base
- */
-
-/**
- * The core plugin class.
- *
- * This is used to define internationalization, admin-specific hooks, and
- * public-facing site hooks.
- *
- * Also maintains the unique identifier of this plugin as well as the current
- * version of the plugin.
- *
- * @since      1.0.1
- * @package    Domain-swapping
- * @subpackage Domain-swapping/App/base
- * @author     Myridia <info@myridia.com>
- */
-
-class WPDSBase
+class Base
 {
     public $plugin_name;
 
@@ -51,7 +23,7 @@ class WPDSBase
         load_plugin_textdomain('host-changer',false, dirname(WPDS_BASENAME). '/languages/'	);  
     }
 
-    public function wpdsadmin_menu()
+    public function admin_menu()
     {
         add_submenu_page(
             'tools.php',
@@ -63,19 +35,19 @@ class WPDSBase
         );
     }
 
-    public function wpdsadmin_dashboard()
+    public function admin_dashboard()
     {
         require_once(WPDS_DIR_PATH . 'assets/admin/settings.php');
     }
 
-    public function wpdssettings_link($links)
+    public function settings_link($links)
     {
         $settings_link = '<a href="' . admin_url('tools.php?page=host-changer') . '">'.esc_html__('Settings','host-changer').'</a>';
         array_unshift($links, $settings_link);
         return $links;
     }
 
-    public function wpdsadmin_setting()
+    public function admin_setting()
     {
         $default_options = array(
             'include' => [],
@@ -94,7 +66,7 @@ class WPDSBase
 
     }
 
-    public function wpdssetting_enable_field()
+    public function setting_enable_field()
     {
         $options1 = get_option('wpdssetting_option');
         ?>
@@ -112,12 +84,12 @@ class WPDSBase
         <?php
     }
 
-    public function wpdsadd_setting_field()
+    public function add_setting_field()
     {
         require_once(WPDS_DIR_PATH . 'assets/admin/setting_fields.php');
     }
 
-    public function wpdsenqueueStyles() {
+    public function enqueueStyles() {
         global $pagenow;
         if($pagenow === 'tools.php'  &&  !empty($_GET['page'])  &&  $_GET['page'] === 'host-changer') {
             wp_enqueue_style('wpdsbootstrap_css', WPDS_DIR_URI . 'assets/admin/css/bootstrap.min.css', '1.0.1');
@@ -126,7 +98,7 @@ class WPDSBase
     }
 
 
-    public function wpdsenqueueScripts()
+    public function enqueueScripts()
     {
         wp_enqueue_script('wpdsbootstrap_js', WPDS_DIR_URI . 'assets/admin/js/bootstrap.min.js', ['jquery'], '1.0.1', true);
         wp_enqueue_script('wpdscustom', WPDS_DIR_URI . 'assets/admin/js/custom.js', ['jquery'], '1.0.1', true);

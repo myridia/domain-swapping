@@ -1,11 +1,5 @@
 <?php
 /**
- * The plugin bootstrap file
- *
- * This file is read by WordPress to generate the plugin information in the plugin
- * admin area. This file also includes all of the dependencies used by the plugin,
- * registers the activation and deactivation functions, and defines a function
- * that starts the plugin.
  * Hard Fork from https://wordpress.org/plugins/host-changer/
  *
  * @link              https://domain-swapping.myridia.com
@@ -29,91 +23,22 @@
 
 defined('ABSPATH') or die('Something went wrong');
 
-use Domain-swapping\App\base\WPDSActivate;
-use Domain-swapping\App\base\WPDSDeactivate;
-use Domain-swapping\App\base\WPDSBase;
-use Domain-swapping\App\filters\WPDSFilterHook;
 
-// Require once the Composer Autoload
-if (file_exists(dirname(__FILE__) . '/vendor/autoload.php')) {
-    require_once dirname(__FILE__) . '/vendor/autoload.php';
-} else {
-    die('Something went wrong');
-}
+use MK\MyPlugin\Main\Class01;
+use MK\MyPlugin\Main\Class02;
+use MK\MyPlugin\Service\Class03;
+ 
 
-if (!defined('WPDS_DIR_PATH')) {
-    define('WPDS_DIR_PATH', plugin_dir_path(__FILE__));
-}
+spl_autoload_register(function(string $className) {
+    if (false === strpos($className, 'MK\\MyPlugin')):
+        return;
+    endif;
+    $className = str_replace('MK\\MyPlugin\\', __DIR__ . '/src/', $className);
+    $classFile =  str_replace('\\', '/', $className) . '.php';
+    require_once $classFile;
+});
 
-if (!defined('WPDS_DIR_URI')) {
-    define('WPDS_DIR_URI', plugin_dir_url(__FILE__));
-}
 
-if (!defined('WPDS_BASENAME')) {
-    define('WPDS_BASENAME', plugin_basename(__FILE__));
-}
-
-if (!defined('WPDS_PREFIX')) {
-    define('WPDS_PREFIX', "wpds");
-}
-
-function activate_wpds_plugin()
-{
-    (new WPDSActivate())->activate();
-}
-
-function deactivate_wpds_plugin()
-{
-    (new WPDSDeactivate())->deactivate();
-}
-
-/**
- * The code that runs during plugin activation
- */
-register_activation_hook(__FILE__, 'activate_wpds_plugin');
-
-/**
- * The code that runs during plugin deactivation
- */
-register_deactivation_hook(__FILE__, 'deactivate_wpds_plugin');
-
-(new WPDSBase())->register();
-
-$options1 = get_option('wpdssetting_option');
-$site_url = (new WPDSFilterHook)->wpdsget_old_url();
-$site_url = parse_url($site_url);
-$site_url = $site_url['host'];
-
-if (!empty($options1)) {
-    array_push($options1['include'], $site_url);
-} else {
-    $options1['include'][] = $site_url;
-}
-
-if(!empty($options1['enableds']) && $options1['enableds'] === 'on' )
-{
-    $_SERVER['HTTP_HOST'] =	$_SERVER['SERVER_NAME'];
-
-    if (!empty($options1['include']) && in_array($_SERVER['HTTP_HOST'], $options1['include'])) {
-        (new WPDSFilterHook)->run();
-    }
-    else {
-        ?>
-        <div id="primary" class="content-area">
-            <div id="content" class="site-content" role="main">
-                <header class="page-header">
-                    <h1 class="page-title"><?php esc_html_e('Host/Domain Not Found', 'domain-changer'); ?></h1>
-                </header>
-                <div class="page-wrapper">
-                    <div class="page-content">
-                        <h2><?php esc_html_e('Please contact the administrator to allow your host/domain.', 'host-changer'); ?></h2>
-                        <p><?php esc_html_e('Your Host/Domain: '.$_SERVER['HTTP_HOST'],'domain-swapping'); ?></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php
-         exit();
-    }
-
-}
+$class01 = new Class01();
+$class02 = new Class02();
+$class03 = new Class03();

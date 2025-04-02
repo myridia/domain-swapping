@@ -1,38 +1,11 @@
 <?php
 
-namespace Domain-swapping\App\filters;
+namespace Wpds\App\filters;
 
 defined('ABSPATH') or die('Something went wrong');
 
-/**
- * The file that defines the core plugin class
- *
- * A class definition that includes attributes and functions used across both the
- * public-facing side of the site and the admin area.
- *
- * @link       https://iqonic.design/
- * @since      1.0.1
- *
- * @package    Domain-swapping
- * @subpackage Domain-swapping/App/filters
- */
 
-/**
- * The core plugin class.
- *
- * This is used to define internationalization, admin-specific hooks, and
- * public-facing site hooks.
- *
- * Also maintains the unique identifier of this plugin as well as the current
- * version of the plugin.
- *
- * @since      1.0.1
- * @package    Domain-swapping
- * @subpackage Domain-swapping/App/filters
- * @author     Myridia <info@myridia.com>
- */
-
-class WPDSFilterHook{
+class FilterHook{
 
     function __construct()
     {
@@ -66,7 +39,7 @@ class WPDSFilterHook{
      * @param $url
      * @return string|string[]
      */
-    function wpdscustom_attachment_url($url)
+    function custom_attachment_url($url)
     {
         $var = explode('/wp-content', $url);
 
@@ -79,7 +52,7 @@ class WPDSFilterHook{
      * @param $url
      * @return string|string[]
      */
-    function wpdscustom_content_url($url)
+    function custom_content_url($url)
     {
         $old_url_parse = parse_url($this->wpdsget_old_url());
         $src_parse = parse_url($url);
@@ -94,7 +67,7 @@ class WPDSFilterHook{
     /**
      * get new site url
      */
-    function wpdsget_new_url()
+    function get_new_url()
     {
         $new_url = get_option('siteurl');
         //print_r($new_url);
@@ -105,7 +78,7 @@ class WPDSFilterHook{
      * get old site url
      */
 
-    function wpdsget_old_url(){
+    function get_old_url(){
         global $wpdb;
         $old_url=$wpdb->get_var( "SELECT option_value from wp9735options where option_name= 'siteurl'" ) ;
         return $old_url;
@@ -114,7 +87,7 @@ class WPDSFilterHook{
     /**
      * change home and siteurl value
      */
-    function wpdscustom_siteurl()
+    function custom_siteurl()
     {
         
         $_SERVER['HTTP_HOST'] = $_SERVER['SERVER_NAME'];
@@ -141,7 +114,7 @@ class WPDSFilterHook{
      * @param $stylesheet_dir_uri
      * @return string|string[]
      */
-    public function wpdscustom_style_uri($stylesheet_dir_uri)
+    public function custom_style_uri($stylesheet_dir_uri)
     {
         $stylesheet_dir_uri = $this->wpdscustom_content_url($stylesheet_dir_uri);
         return $stylesheet_dir_uri;
@@ -151,7 +124,7 @@ class WPDSFilterHook{
      * @param $buffer
      * @return string|string[]
      */
-    function wpdsrelative_url($buffer)
+    function relative_url($buffer)
     {
         // Replace normal URLs
         $home_url = esc_url(home_url('/'));
@@ -168,7 +141,7 @@ class WPDSFilterHook{
     }
 
 
-    public function wpdsbuffer_start_relative_url()
+    public function buffer_start_relative_url()
     {
         ob_start(array($this, 'wpdsrelative_url'));
     }
@@ -183,7 +156,7 @@ class WPDSFilterHook{
      * @param $src
      * @return string|string[]
      */
-    public function wpdscustom_featured_img_url($src)
+    public function custom_featured_img_url($src)
     {
         $src = str_replace($this->wpdsget_old_url(), $this->wpdsget_new_url(), $src);
         return $src;
