@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) or die( 'Something went wrong' );
  * @author     Myridia <info@myridia.com>
  */
 
-class WPHCDeactivate{
+class WPDSDeactivate{
     function __construct() {
     }
 

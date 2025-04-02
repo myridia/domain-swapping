@@ -20,30 +20,30 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: app/base/WPHCBase.php:58 app/base/WPHCBase.php:59
+#: app/base/WPDSBase.php:58 app/base/WPDSBase.php:59
 #: assets/admin/settings.php:3
 msgid "WPMultiHost"
 msgstr ""
 
-#: app/base/WPHCBase.php:73
+#: app/base/WPDSBase.php:73
 msgid "Settings"
 msgstr ""
 
-#: app/base/WPHCBase.php:104
+#: app/base/WPDSBase.php:104
 msgid "Enable Multiple Domains"
 msgstr ""
 
-#: app/base/WPHCBase.php:109
+#: app/base/WPDSBase.php:109
 msgid ""
 "If you are Enabling Multiple Domains and not in the main domain, Then first "
 "add your domain in the Allowed host and save settings before enabling."
 msgstr ""
 
-#: app/base/WPHCBase.php:134
+#: app/base/WPDSBase.php:134
 msgid "Allowed Host"
 msgstr ""
 
-#: app/base/WPHCBase.php:135
+#: app/base/WPDSBase.php:135
 msgid "No Item Found Refresh your page and try again."
 msgstr ""
 

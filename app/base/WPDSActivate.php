@@ -25,7 +25,7 @@ defined('ABSPATH') or die('Something went wrong');
  * @author     info@myridia.com
  */
 
-class WPHCActivate
+class WPDSActivate
 {
     function __construct()
     {

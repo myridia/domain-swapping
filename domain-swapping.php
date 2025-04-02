@@ -29,10 +29,10 @@
 
 defined('ABSPATH') or die('Something went wrong');
 
-use Domain-swapping\App\base\WPHCActivate;
-use Domain-swapping\App\base\WPHCDeactivate;
-use Domain-swapping\App\base\WPHCBase;
-use Domain-swapping\App\filters\WPHCFilterHook;
+use Domain-swapping\App\base\WPDSActivate;
+use Domain-swapping\App\base\WPDSDeactivate;
+use Domain-swapping\App\base\WPDSBase;
+use Domain-swapping\App\filters\WPDSFilterHook;
 
 // Require once the Composer Autoload
 if (file_exists(dirname(__FILE__) . '/vendor/autoload.php')) {
@@ -41,30 +41,30 @@ if (file_exists(dirname(__FILE__) . '/vendor/autoload.php')) {
     die('Something went wrong');
 }
 
-if (!defined('WPHC_DIR_PATH')) {
-    define('WPHC_DIR_PATH', plugin_dir_path(__FILE__));
+if (!defined('WPDS_DIR_PATH')) {
+    define('WPDS_DIR_PATH', plugin_dir_path(__FILE__));
 }
 
-if (!defined('WPHC_DIR_URI')) {
-    define('WPHC_DIR_URI', plugin_dir_url(__FILE__));
+if (!defined('WPDS_DIR_URI')) {
+    define('WPDS_DIR_URI', plugin_dir_url(__FILE__));
 }
 
-if (!defined('WPHC_BASENAME')) {
-    define('WPHC_BASENAME', plugin_basename(__FILE__));
+if (!defined('WPDS_BASENAME')) {
+    define('WPDS_BASENAME', plugin_basename(__FILE__));
 }
 
-if (!defined('WPHC_PREFIX')) {
-    define('WPHC_PREFIX', "wpds");
+if (!defined('WPDS_PREFIX')) {
+    define('WPDS_PREFIX', "wpds");
 }
 
 function activate_wphost_change_plugin()
 {
-    (new WPHCActivate())->activate();
+    (new WPDSActivate())->activate();
 }
 
 function deactivate_wphost_change_plugin()
 {
-    (new WPHCDeactivate())->deactivate();
+    (new WPDSDeactivate())->deactivate();
 }
 
 /**
@@ -77,10 +77,10 @@ register_activation_hook(__FILE__, 'activate_wphost_change_plugin');
  */
 register_deactivation_hook(__FILE__, 'deactivate_wphost_change_plugin');
 
-(new WPHCBase())->register();
+(new WPDSBase())->register();
 
 $options1 = get_option('wpdssetting_option');
-$site_url = (new WPHCFilterHook)->wpdsget_old_url();
+$site_url = (new WPDSFilterHook)->wpdsget_old_url();
 $site_url = parse_url($site_url);
 $site_url = $site_url['host'];
 
@@ -95,7 +95,7 @@ if(!empty($options1['enablehostchanger']) && $options1['enablehostchanger'] === 
     $_SERVER['HTTP_HOST'] =	$_SERVER['SERVER_NAME'];
 
     if (!empty($options1['include']) && in_array($_SERVER['HTTP_HOST'], $options1['include'])) {
-        (new WPHCFilterHook)->run();
+        (new WPDSFilterHook)->run();
     }
     else {
         ?>

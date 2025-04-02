@@ -32,7 +32,7 @@ defined('ABSPATH') or die('Something went wrong');
  * @author     Myridia <info@myridia.com>
  */
 
-class WPHCFilterHook{
+class WPDSFilterHook{
 
     function __construct()
     {
@@ -118,23 +118,23 @@ class WPHCFilterHook{
     {
         
         $_SERVER['HTTP_HOST'] = $_SERVER['SERVER_NAME'];
-        if (!defined('WPHC_CUSTOM_REQUEST_URL')) {
+        if (!defined('WPDS_CUSTOM_REQUEST_URL')) {
             $abspath = rtrim(ABSPATH, "/");
             if (strpos($_SERVER["DOCUMENT_ROOT"], '.valet') != false) {
-                define('WPHC_CUSTOM_REQUEST_URL', 'https://' . $_SERVER['HTTP_HOST']);
+                define('WPDS_CUSTOM_REQUEST_URL', 'https://' . $_SERVER['HTTP_HOST']);
             } else {
-                define('WPHC_CUSTOM_REQUEST_URL', 'https://' . $_SERVER['HTTP_HOST'] . str_replace($_SERVER["DOCUMENT_ROOT"], '', $abspath));
+                define('WPDS_CUSTOM_REQUEST_URL', 'https://' . $_SERVER['HTTP_HOST'] . str_replace($_SERVER["DOCUMENT_ROOT"], '', $abspath));
             }
 
             if (!defined('WP_SITEURL')) {
-                define('WP_SITEURL', WPHC_CUSTOM_REQUEST_URL);
+                define('WP_SITEURL', WPDS_CUSTOM_REQUEST_URL);
             }
             if (!defined('WP_HOME')) {
-                define('WP_HOME', WPHC_CUSTOM_REQUEST_URL);
+                define('WP_HOME', WPDS_CUSTOM_REQUEST_URL);
             }
         }
 
-        return WPHC_CUSTOM_REQUEST_URL; //Specify your local dev URL here.
+        return WPDS_CUSTOM_REQUEST_URL; //Specify your local dev URL here.
     }
 
     /**
