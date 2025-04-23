@@ -15,7 +15,7 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 WPMultiHost is a plugin which helps to access same WordPress site from different domains.
 
-## Description ##
+## Description 
 
 plugin which helps you to access 1 WordPress site from Multiple domains.
 
@@ -28,11 +28,11 @@ plugin which helps you to access 1 WordPress site from Multiple domains.
 - Will help to use it with NGROK and any other tunnel domains.
 
 
-== Screenshots ==
+## Screenshots 
 
 
 
-== Installation ==
+## Installation 
 
 1. Upload the plugin and activate it (alternatively, install through the WP admin console)
 2. Go into Tools, Select sub-menu "host-swapper"
