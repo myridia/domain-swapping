@@ -1,4 +1,4 @@
-=== WPMultiHost - 1 WordPress Site with Multiple Domains ===
+=== Domain-swapping - 1 WordPress Site with Multiple Domains ===
 Contributors: iqonicdesign
 Tags: wordpress, changer, host switcher, dynamic host, multiplehosts, multihost
 Requires PHP: 5.2.4
