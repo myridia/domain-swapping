@@ -16,7 +16,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: domain-swapper
  * Domain Path: /languages
- * Author URI: http://myridia.com
+ * Author URI: http://domain-swapper.myridia.com
  * Update URL: https://github.com/myridia/domain-swapper 
  **/
 
