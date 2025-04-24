@@ -1,5 +1,5 @@
-# host-swapper
-hosts-swapper
+# domain-swapper
+domain-swapper
 
 ## Hard Fork from iqonicdesign  WPMultiHost https://youtu.be/zEV2GVB-BcU
 
