@@ -3,6 +3,9 @@ A WordPress plugin is integrated into WordPress, so the best way to work with it
 we can work it.
 The Dockers where will simulate the server, so we can access the site locally without computer.
 
+See https://github.com/myridia/hello_haproxy_docker/tree/main for install the certificates into your browser to be able to access the local test  https domains
+
+ 
 ## After you run the docker-compose you can access to
 ```
   docker-compose up
