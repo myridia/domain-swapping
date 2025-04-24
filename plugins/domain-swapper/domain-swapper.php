@@ -2,22 +2,22 @@
 /**
  * Hard Fork from https://wordpress.org/plugins/host-changer/
  *
- * @link              https://domain-swapping.myridia.com
+ * @link              https://domain-swapper.myridia.com
  * @since             1.0.0
  * @package           Domain-swapping
  *
  * @wordpress-plugin
- * Plugin Name: Domain swapping - Use and swap multiple domains with one WordPress Site 
- * Plugin URI: https://wordpress.org/plugins/domain-swapping 
- * Description: domain_swapping to access same WordPress site from different domains.
+ * Plugin Name: Domain swapper - Use and change/swap multiple domains with one WordPress Site 
+ * Plugin URI: https://wordpress.org/plugins/domain-swapper 
+ * Description: domain_swapper to access same WordPress site from different domains.
  * Version: 1.0.0
  * Author: Myridia Company
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: domain-swapping
+ * Text Domain: domain-swapper
  * Domain Path: /languages
  * Author URI: http://myridia.com
- * Update URL: https://github.com/myridia/domain-swapping 
+ * Update URL: https://github.com/myridia/domain-swapper 
  **/
 
 
