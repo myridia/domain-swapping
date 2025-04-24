@@ -25,6 +25,33 @@ services:
     volumes:
       - db:/var/lib/mysql
 
+  ha_proxy:
+    container_name: ha_proxy    
+    image: haproxy:latest
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "80:80"
+      - "443:443" 
+    volumes:
+      - "./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg"
+      - "./certs/:/opt/certs/"      
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "81:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: exampleuser
+      PMA_PASSWORD: examplepass
+    #volumes:
+    #  - "./etc/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php"
+    #networks:
+    #  workgroup:
+    #      ipv4_address: "10.5.0.4"
+      
 volumes:
   wordpress:
   db:
