@@ -2,6 +2,7 @@ services:
 
   wordpress:
     image: wordpress
+    container_name: wp    
     restart: always
     ports:
       - 8080:80
@@ -16,6 +17,7 @@ services:
 
   db:
     image: mysql:8.0
+    container_name: wp_mysql        
     restart: always
     environment:
       MYSQL_DATABASE: exampledb
@@ -46,11 +48,6 @@ services:
       PMA_HOST: db
       PMA_USER: exampleuser
       PMA_PASSWORD: examplepass
-    #volumes:
-    #  - "./etc/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php"
-    #networks:
-    #  workgroup:
-    #      ipv4_address: "10.5.0.4"
       
 volumes:
   wordpress:
