@@ -67,7 +67,6 @@ m_make_constants( 'URI', plugin_dir_url( __FILE__ ) ,$m_plugin_data['prefix'] );
 m_make_constants( 'PATH', plugin_dir_path( __FILE__ ) ,$m_plugin_data['prefix'] );
 m_make_constants( 'SLUG', dirname( plugin_basename( __FILE__ ) ) ,$m_plugin_data['prefix'] );
 m_make_constants( 'BASENAME', dirname( plugin_basename( __FILE__ ) ) ,$m_plugin_data['prefix'] );
-
 m_make_constants( 'VERSION', $m_plugin_data['version'] ,$m_plugin_data['prefix'] );
 m_make_constants( 'TEXT', $m_plugin_data['text'] ,$m_plugin_data['prefix'] );
 m_make_constants( 'PREFIX', 'wpds' ,$m_plugin_data['prefix'] );
