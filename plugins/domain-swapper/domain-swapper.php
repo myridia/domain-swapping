@@ -22,19 +22,17 @@
  * Prefix: wpds_ 
  **/
 
-
 defined('ABSPATH') or die('Something went wrong');
-
 
 use WP\Ds\Main\Class01;
 use WP\Ds\Main\Class02;
 use WP\Ds\Service\Class03;
 
 // get the metadata from the plugin header
-$m_plugin_data = get_file_data( __FILE__, array( 'name'=>'Plugin Name', 'version'=>'Version', 'text'=>'Text Domain','constant_prefix'=>'Constant Prefix' ,'prefix'=>'Prefix' ) );
+$m_plugin_data = get_file_data( __FILE__, array( 'name'=>'Plugin Name', 'version'=>'Version', 'text_domain'=>'Text Domain','constant_prefix'=>'Constant Prefix' ,'prefix'=>'Prefix' ) );
 
 //  Define Plugin specific Constants
-m_make_constants( 'NAME', $m_plugin_data['name'] ,$m_plugin_data );  
+m_make_constants( 'NAME', $m_plugin_data['text_domain'] ,$m_plugin_data );  
 m_make_constants( 'DIR', dirname( plugin_basename( __FILE__ ) ),$m_plugin_data );
 m_make_constants( 'BASE', plugin_basename( __FILE__ ) ,$m_plugin_data );
 m_make_constants( 'URL', plugin_dir_url( __FILE__ ) ,$m_plugin_data );
@@ -43,7 +41,7 @@ m_make_constants( 'PATH', plugin_dir_path( __FILE__ ) ,$m_plugin_data );
 m_make_constants( 'SLUG', dirname( plugin_basename( __FILE__ ) ) ,$m_plugin_data );
 m_make_constants( 'BASENAME', dirname( plugin_basename( __FILE__ ) ) ,$m_plugin_data );
 m_make_constants( 'VERSION', $m_plugin_data['version'] ,$m_plugin_data );
-m_make_constants( 'TEXT', $m_plugin_data['text'] ,$m_plugin_data );
+m_make_constants( 'TEXT', $m_plugin_data['text_domain'] ,$m_plugin_data );
 m_make_constants( 'PREFIX', $m_plugin_data['prefix'] ,$m_plugin_data );
 m_make_constants( 'SETTINGS', $m_plugin_data['prefix'] ,$m_plugin_data );
 
@@ -51,6 +49,18 @@ m_make_constants( 'SETTINGS', $m_plugin_data['prefix'] ,$m_plugin_data );
 // Default Plugin activate and deactivate hooks
 register_activation_hook( __FILE__, array( 'WP\Ds\Main\Class01', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'WP\Ds\Main\Class01', 'deactivate' ) );
+add_action( 'init', 'wp_ds_plugin_init' );
+
+
+function wp_ds_plugin_init()
+{
+
+  $plugin = new Class01();
+  $plugin->register();  
+  //echo "xxxx";
+  //exit;
+
+}
 
 /*
   Helper Function to register Classes cleanly with namespaces 

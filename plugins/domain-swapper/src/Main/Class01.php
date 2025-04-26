@@ -26,4 +26,17 @@ class Class01
       delete_option('plugin_'. WPDS_NAME);
     }
 
+    public function register()
+    {
+        add_submenu_page(
+            'options-general.php',
+            esc_html__('WPMultiHost','host-changer'),
+            esc_html__('WPMultiHost','host-changer'),
+            'read',
+            'host-changer',
+            array($this, 'wpdsadmin_dashboard')
+        );
+
+    }    
+
 }
