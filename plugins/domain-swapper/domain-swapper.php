@@ -18,7 +18,8 @@
  * Domain Path: /languages
  * Author URI: http://domain-swapper.myridia.com
  * Update URL: https://github.com/myridia/domain-swapper
- * Prefix: WPDS_
+ * Constant Prefix: WPDS_
+ * Prefix: wpds_ 
  **/
 
 
@@ -30,7 +31,26 @@ use WP\Ds\Main\Class02;
 use WP\Ds\Service\Class03;
 
 // get the metadata from the plugin header
-$m_plugin_data = get_file_data( __FILE__, array( 'name'=>'Plugin Name', 'version'=>'Version', 'text'=>'Text Domain','prefix'=>'Prefix' ) );
+$m_plugin_data = get_file_data( __FILE__, array( 'name'=>'Plugin Name', 'version'=>'Version', 'text'=>'Text Domain','constant_prefix'=>'Constant Prefix' ,'prefix'=>'Prefix' ) );
+
+//  Define Plugin specific Constants
+m_make_constants( 'NAME', $m_plugin_data['name'] ,$m_plugin_data );  
+m_make_constants( 'DIR', dirname( plugin_basename( __FILE__ ) ),$m_plugin_data );
+m_make_constants( 'BASE', plugin_basename( __FILE__ ) ,$m_plugin_data );
+m_make_constants( 'URL', plugin_dir_url( __FILE__ ) ,$m_plugin_data );
+m_make_constants( 'URI', plugin_dir_url( __FILE__ ) ,$m_plugin_data );
+m_make_constants( 'PATH', plugin_dir_path( __FILE__ ) ,$m_plugin_data );
+m_make_constants( 'SLUG', dirname( plugin_basename( __FILE__ ) ) ,$m_plugin_data );
+m_make_constants( 'BASENAME', dirname( plugin_basename( __FILE__ ) ) ,$m_plugin_data );
+m_make_constants( 'VERSION', $m_plugin_data['version'] ,$m_plugin_data );
+m_make_constants( 'TEXT', $m_plugin_data['text'] ,$m_plugin_data );
+m_make_constants( 'PREFIX', $m_plugin_data['prefix'] ,$m_plugin_data );
+m_make_constants( 'SETTINGS', $m_plugin_data['prefix'] ,$m_plugin_data );
+
+
+// Default Plugin activate and deactivate hooks
+register_activation_hook( __FILE__, array( 'WP\Ds\Main\Class01', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'WP\Ds\Main\Class01', 'deactivate' ) );
 
 /*
   Helper Function to register Classes cleanly with namespaces 
@@ -45,8 +65,9 @@ spl_autoload_register(function(string $className) {
 });
 
 
-
-function m_make_constants( $name, $value, $prefix) {
+// Helper Function to create Constants
+function m_make_constants( $name, $value, $pdata) {
+    $prefix = $pdata["constant_prefix"];
     $c_name = $prefix . $name;
     if ( !defined( $c_name ) ):
         define( $c_name, $value );
@@ -55,53 +76,6 @@ function m_make_constants( $name, $value, $prefix) {
 
 
 
-/*
-  Define Plugin specific Constants
-*/
-
-m_make_constants( 'NAME', $m_plugin_data['name'] ,$m_plugin_data['prefix'] );  
-m_make_constants( 'DIR', dirname( plugin_basename( __FILE__ ) ),$m_plugin_data['prefix'] );
-m_make_constants( 'BASE', plugin_basename( __FILE__ ) ,$m_plugin_data['prefix'] );
-m_make_constants( 'URL', plugin_dir_url( __FILE__ ) ,$m_plugin_data['prefix'] );
-m_make_constants( 'URI', plugin_dir_url( __FILE__ ) ,$m_plugin_data['prefix'] );
-m_make_constants( 'PATH', plugin_dir_path( __FILE__ ) ,$m_plugin_data['prefix'] );
-m_make_constants( 'SLUG', dirname( plugin_basename( __FILE__ ) ) ,$m_plugin_data['prefix'] );
-m_make_constants( 'BASENAME', dirname( plugin_basename( __FILE__ ) ) ,$m_plugin_data['prefix'] );
-
-m_make_constants( 'VERSION', $m_plugin_data['version'] ,$m_plugin_data['prefix'] );
-m_make_constants( 'TEXT', $m_plugin_data['text'] ,$m_plugin_data['prefix'] );
-m_make_constants( 'PREFIX', 'wpds' ,$m_plugin_data['prefix'] );
-m_make_constants( 'SETTINGS', 'wpds' ,$m_plugin_data['prefix'] );
-
-/*
-if (!defined('WPDS_DIR_PATH')):
-    define('WPDS_DIR_PATH', plugin_dir_path(__FILE__));
-endif;
-
-if (!defined('WPDS_DIR_URI')): 
-    define('WPDS_DIR_URI', plugin_dir_url(__FILE__));
-endif;
-
-if (!defined('WPDS_BASENAME')):
-    define('WPDS_BASENAME', plugin_basename(__FILE__));
-endif;
-
-if (!defined('WPDS_PREFIX')):
-    define('WPDS_PREFIX', "wpds");
-endif;
-
-if (!defined('WPDS_NAME')):
-    define('WPDS_NAME', "domain_swapper");
-endif;
-*/
-
-
-
-/*
- Default Plugin activate and deactivate hooks
-*/
-register_activation_hook( __FILE__, array( 'WP\Ds\Main\Class01', 'activate' ) );
-register_deactivation_hook( __FILE__, array( 'WP\Ds\Main\Class01', 'deactivate' ) );
 
 
 
