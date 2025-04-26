@@ -28,7 +28,9 @@ use WP\Ds\Main\Class01;
 use WP\Ds\Main\Class02;
 use WP\Ds\Service\Class03;
  
-
+/*
+  Helper Function to register Classes cleanly with namespaces 
+*/
 spl_autoload_register(function(string $className) {
     if (false === strpos($className, 'WP\\Ds')):
         return;
@@ -39,6 +41,32 @@ spl_autoload_register(function(string $className) {
 });
 
 
+$plugin_data = get_file_data( __FILE__, array( 'name'=>'domain-swapper', 'version'=>'1.0', 'text'=>'domain-swapper' ) );
+function allmetatags_constants( $constant_name, $value ) {
+    $constant_name_prefix = 'WPDS_';
+    $constant_name = $constant_name_prefix . $constant_name;
+    if ( !defined( $constant_name ) )
+        define( $constant_name, $value );
+}
+
+/*
+  Define Plugin specific Constants
+*/
+
+allmetatags_constants( 'DIR', dirname( plugin_basename( __FILE__ ) ) );
+allmetatags_constants( 'BASE', plugin_basename( __FILE__ ) );
+allmetatags_constants( 'URL', plugin_dir_url( __FILE__ ) );
+allmetatags_constants( 'URI', plugin_dir_url( __FILE__ ) );
+allmetatags_constants( 'PATH', plugin_dir_path( __FILE__ ) );
+allmetatags_constants( 'SLUG', dirname( plugin_basename( __FILE__ ) ) );
+allmetatags_constants( 'BASENAME', dirname( plugin_basename( __FILE__ ) ) );
+allmetatags_constants( 'NAME', $plugin_data['name'] );
+allmetatags_constants( 'VERSION', $plugin_data['version'] );
+allmetatags_constants( 'TEXT', $plugin_data['text'] );
+allmetatags_constants( 'PREFIX', 'wpds' );
+allmetatags_constants( 'SETTINGS', 'wpds' )
+
+/*
 if (!defined('WPDS_DIR_PATH')):
     define('WPDS_DIR_PATH', plugin_dir_path(__FILE__));
 endif;
@@ -58,11 +86,13 @@ endif;
 if (!defined('WPDS_NAME')):
     define('WPDS_NAME', "domain_swapper");
 endif;
+/*
 
 
 
-
-
+/*
+ Default Plugin activate and deactivate hooks
+*/
 register_activation_hook( __FILE__, array( 'WP\Ds\Main\Class01', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'WP\Ds\Main\Class01', 'deactivate' ) );
 
