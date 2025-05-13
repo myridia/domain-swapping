@@ -2,9 +2,7 @@
 
 namespace WP\Ds\Main;
 class Class01
-
 {
-
     public function __construct()
     {
         //echo 'Class01 instantiated.';

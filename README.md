@@ -12,6 +12,10 @@ docker-compose up
 * After the Dockers got loaded, setup Wordpress http://127.0.0.1
 
 
+## Wordpress login
+* user: test
+* pass: test
+
 
 ## Hard Fork from iqonicdesign  WPMultiHost https://youtu.be/zEV2GVB-BcU
 
