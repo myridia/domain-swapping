@@ -51,14 +51,11 @@ function wp_ds_plugin_init()
 {
     $plugin = new Class01();
     $plugin->register();
-    // echo "xxxx";
-    // exit;
 }
 
 /*
   Helper Function to register Classes cleanly with namespaces
 */
-
 spl_autoload_register(function (string $className) {
     if (false === strpos($className, 'WP\\Ds')) {
         return;

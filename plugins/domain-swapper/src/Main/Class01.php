@@ -29,8 +29,8 @@ class Class01
     {
         add_submenu_page(
             'options-general.php',
-            esc_html__('WPMultiHost', 'host-changer'),
-            esc_html__('WPMultiHost', 'host-changer'),
+            esc_html__('Domain Swapper', 'domain_swapper'),
+            esc_html__('Domain Swapper', 'domain_swapper'),
             'read',
             'host-changer',
             [$this, 'wpdsadmin_dashboard']

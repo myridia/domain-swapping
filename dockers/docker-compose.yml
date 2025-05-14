@@ -28,6 +28,26 @@ services:
     volumes:
       - db:/var/lib/mysql
 
+  wpcli:
+    depends_on: 
+      - db
+      - wordpress
+    image: wordpress:cli
+    container_name: wpcli
+    links:
+      - db:mysql
+    entrypoint: wp
+    command: "--info"
+    
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb    
+    volumes:
+      - wordpress:/var/www/html
+    working_dir: /var/www/html/
+      
   ha_proxy:
     container_name: ha_proxy    
     image: haproxy:latest

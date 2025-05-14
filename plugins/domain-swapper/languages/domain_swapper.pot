@@ -22,8 +22,8 @@ msgstr ""
 
 #: app/base/WPDSBase.php:58 app/base/WPDSBase.php:59
 #: assets/admin/settings.php:3
-msgid "WPMultiHost"
-msgstr ""
+msgid "Domain Swapper"
+msgstr "Domain Swapperx"
 
 #: app/base/WPDSBase.php:73
 msgid "Settings"
