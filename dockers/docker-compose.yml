@@ -1,5 +1,4 @@
 services:
-
   wordpress:
     image: wordpress
     container_name: wp    
@@ -28,34 +27,25 @@ services:
     volumes:
       - db:/var/lib/mysql
 
-  wp_cli:
-    image: debian:latest
-    container_name: wp_cli    
-    command: tail -F anything
-    volumes:
-      - wordpress:/var/www/html
-      - ../plugins/domain-swapper:/var/www/html/wp-content/plugins/domain-swapper                
-    
   wpcli:
+    image: wordpress:cli    
+    container_name: wpcli
     depends_on: 
       - db
-      - wordpress
-    image: wordpress:cli
-    container_name: wpcli
+      - wordpress    
+    command: tail -F anything
+    user: root 
     links:
-      - db:mysql
-    entrypoint: wp
-    command: "--info"
-    
+      - db:mysql    
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: exampleuser
       WORDPRESS_DB_PASSWORD: examplepass
-      WORDPRESS_DB_NAME: exampledb    
+      WORDPRESS_DB_NAME: exampledb        
     volumes:
       - wordpress:/var/www/html
-      - ../plugins/domain-swapper:/var/www/html/wp-content/plugins/domain-swapper            
-    working_dir: /var/www/html/wp-content/plugins/domain-swapper 
+      - ../plugins/domain-swapper:/var/www/html/wp-content/plugins/domain-swapper                
+    working_dir: /var/www/html/wp-content/plugins/domain-swapper
       
   ha_proxy:
     container_name: ha_proxy    
