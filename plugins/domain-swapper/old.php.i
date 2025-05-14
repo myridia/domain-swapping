@@ -23,29 +23,6 @@
 
 defined('ABSPATH') or die('Something went wrong');
 
-
-use MK\MyPlugin\Main\Class01;
-use MK\MyPlugin\Main\Class02;
-use MK\MyPlugin\Main\Service01;
-
- 
-
-spl_autoload_register(function(string $className) {
-    if (false === strpos($className, 'MK\\MyPlugin')):
-        return;
-    endif;
-    $className = str_replace('MK\\MyPlugin\\', __DIR__ . '/src/', $className);
-    $classFile =  str_replace('\\', '/', $className) . '.php';
-    require_once $classFile;
-});
-
- 
-
-$service01 = new Service01();
-$class01 = new Class01();
-$class02 = new Class02($service01);
-
-
 /*
 require_once __DIR__ . '/app/base/Activate.php';
 require_once __DIR__ . '/app/base/Deactivate.php';
@@ -58,32 +35,6 @@ use Wpds\App\base\Base;
 use Wpds\App\filters\FilterHook;
 
 
-if (!defined('WPDS_DIR_PATH'))
-{
-    define('WPDS_DIR_PATH', plugin_dir_path(__FILE__));
-}
-
-if (!defined('WPDS_DIR_URI'))
-{
-    define('WPDS_DIR_URI', plugin_dir_url(__FILE__));
-}
-
-if (!defined('WPDS_BASENAME')) {
-    define('WPDS_BASENAME', plugin_basename(__FILE__));
-}
-
-if (!defined('WPDS_PREFIX')) {
-    define('WPDS_PREFIX', "wpds");
-}
-
-function activate_wpds_plugin()
-{
-    //  (new Activate())->activate();
-}
-
-function deactivate_wpds_plugin()
-{
-    //(new Deactivate())->deactivate();
 }
 
 

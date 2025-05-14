@@ -1,6 +1,22 @@
 # domain-swapper
 domain-swapper
 
+## Install
+```
+git clone https://github.com/myridia/domain-swapper.git
+cd domain-swapper/dockers
+docker-compose up
+```
+
+## First Wordpress Setup
+* After the Dockers got loaded, setup Wordpress http://127.0.0.1
+
+
+## Wordpress login
+* user: test
+* pass: test
+
+
 ## Hard Fork from iqonicdesign  WPMultiHost https://youtu.be/zEV2GVB-BcU
 
 ## Info
