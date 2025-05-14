@@ -32,8 +32,13 @@ services:
     container_name: wpcli
     depends_on: 
       - db
-      - wordpress    
-    command: tail -F anything
+      - wordpress
+      
+    #command: tail -F anything
+    command: >
+      /bin/sh -c '
+      sleep 30;
+      wp core install --path="/var/www/html" --url="http://localhost:8080" --title="test" --admin_user=test --admin_password=test --admin_email=test@myridia.com --allow-root; tail -F anything '
     user: root 
     links:
       - db:mysql    
@@ -45,7 +50,7 @@ services:
     volumes:
       - wordpress:/var/www/html
       - ../plugins/domain-swapper:/var/www/html/wp-content/plugins/domain-swapper                
-    working_dir: /var/www/html/wp-content/plugins/domain-swapper
+    #working_dir: /var/www/html/wp-content/plugins/domain-swapper
       
   ha_proxy:
     container_name: ha_proxy    
