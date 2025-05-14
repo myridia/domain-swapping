@@ -84,5 +84,5 @@ docker exec -it wpcli bash
 
 ## Generate Language Files
 ```
-wp i18n make-pot . languages/domain_swapper.pot
+wp i18n make-pot . languages/domain_swapper.pot --allow-root
 ```
