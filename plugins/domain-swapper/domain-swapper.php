@@ -42,15 +42,20 @@ m_make_constants('TEXT', $m_plugin_data['text_domain'], $m_plugin_data);
 m_make_constants('PREFIX', $m_plugin_data['prefix'], $m_plugin_data);
 m_make_constants('SETTINGS', $m_plugin_data['prefix'], $m_plugin_data);
 
-// Default Plugin activate and deactivate hooks
+// Default Plugin activate and deactivate hooks, started in static class functions
 register_activation_hook(__FILE__, ['WP\Ds\Main\Class01', 'activate']);
 register_deactivation_hook(__FILE__, ['WP\Ds\Main\Class01', 'deactivate']);
+
+// Register to start the Plugin
 add_action('init', 'wp_ds_plugin_init');
 
+/*
+  Start the the Plugin
+*/
 function wp_ds_plugin_init()
 {
     $plugin = new Class01();
-    $plugin->register();
+    $plugin->add_menu_setting();
 }
 
 /*
@@ -65,11 +70,13 @@ spl_autoload_register(function (string $className) {
     require_once $classFile;
 });
 
-// Helper Function to create Constants
+// Helper Function to create all Constants
 function m_make_constants($name, $value, $pdata)
 {
     $prefix = $pdata['constant_prefix'];
     $c_name = $prefix.$name;
+    // echo $c_name.'<br>';
+    // echo $value.'<br>';
     if (!defined($c_name)) {
         define($c_name, $value);
     }

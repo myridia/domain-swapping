@@ -9,6 +9,9 @@ class Class01
         // echo 'Class01 instantiated.';
     }
 
+    /*
+      Default Activate
+    */
     public static function activate()
     {
         $options = [
@@ -20,12 +23,18 @@ class Class01
         }
     }
 
+    /*
+      Default Deacativation
+    */
     public static function deactivate()
     {
         delete_option('plugin_'.WPDS_NAME);
     }
 
-    public function register()
+    /*
+      Add Menu Setting
+    */
+    public function add_menu_setting()
     {
         add_submenu_page(
             'options-general.php',
@@ -33,7 +42,13 @@ class Class01
             esc_html__('Domain Swapper', 'domain_swapper'),
             'read',
             'host-changer',
-            [$this, 'wpdsadmin_dashboard']
+            [$this, 'setting_page']
         );
+    }
+
+    public function setting_page()
+    {
+        // var_dump(WPDS_PATH.'/src/views/settings.php');
+        require_once WPDS_PATH.'/src/views/settings.php';
     }
 }

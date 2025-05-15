@@ -86,3 +86,21 @@ docker exec -it wpcli bash
 ```
 wp i18n make-pot . languages/domain_swapper.pot --allow-root
 ```
+
+## Constatns
+```
+WPDS_NAME
+WPDS_DIR
+WPDS_BASE
+WPDS_URL
+WPDS_URI
+WPDS_PATH
+WPDS_SLUG
+WPDS_BASENAME
+WPDS_VERSION
+WPDS_TEXT
+WPDS_PREFIX
+WPDS_SETTINGS
+
+
+```
