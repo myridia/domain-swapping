@@ -43,24 +43,104 @@ class Class01
             'options-general.php',
             esc_html__('Domain Swapper', 'domain_swapper'),
             esc_html__('Domain Swapper', 'domain_swapper'),
-            'read',
-            'host-changer',
-            [$this, 'setting_page']
+            'edit_pages',
+            'domain-swapper',
+            'wporg_options_page_html',
+            99
         );
     }
 
-    public function setting_page()
+    /*
+      Add Menu Setting
+    */
+    public function register_settings()
     {
-        // var_dump(WPDS_PATH.'/src/views/settings.php');
-        $settings = get_option(WPDS_OPTION);
-        if (false == $settings) {
-            update_option(WPDS_OPTION, $this->options);
-        }
-        // https://developer.wordpress.org/plugins/settings/settings-api/
-        // register_setting(WPDS_OPTION, WPDS_OPTION);
-        // add_settings_field('wpdssetting_enable_field', '', [$this, 'wpdssetting_enable_field'], 'hostchanger-setting-panel', WPDS_OPTION);
-        // add_settings_field('wpdssetting_field', '', [$this, 'wpdsadd_setting_field'], 'hostchanger-setting-panel', WPDS_OPTION);
+        register_setting('wporg', 'wporg_options');
 
-        require_once WPDS_PATH.'/src/views/settings.php';
+        add_settings_section(
+            'wporg_section_developers',
+            __('The Matrix has you.', 'wporg'),
+            [$this, 'callback'],
+            'wporg'
+        );
+
+        add_settings_field(
+            'wporg_field_pill',
+            __('Pill', 'wporg'),
+            [$this, 'field_pill_cb'],
+            'wporg',
+            'wporg_section_developers',
+            [
+                'label_for' => 'wporg_field_pill',
+                'class' => 'wporg_row',
+                'wporg_custom_data' => 'custom',
+            ]
+        );
+    }
+
+    public function callback()
+    {
+        esc_html_e('Page limit is 10', 'text-domain');
+    }
+
+    public function field_pill_cb($args)
+    {
+        // Get the value of the setting we've registered with register_setting()
+        $options = get_option('wporg_options');
+        ?>
+	<select
+			id="<?php echo esc_attr($args['label_for']); ?>"
+			data-custom="<?php echo esc_attr($args['wporg_custom_data']); ?>"
+			name="wporg_options[<?php echo esc_attr($args['label_for']); ?>]">
+		<option value="red" <?php echo isset($options[$args['label_for']]) ? (selected($options[$args['label_for']], 'red', false)) : (''); ?>>
+			<?php esc_html_e('red pill', 'wporg'); ?>
+		</option>
+ 		<option value="blue" <?php echo isset($options[$args['label_for']]) ? (selected($options[$args['label_for']], 'blue', false)) : (''); ?>>
+			<?php esc_html_e('blue pill', 'wporg'); ?>
+		</option>
+	</select>
+	<p class="description">
+		<?php esc_html_e('You take the blue pill and the story ends. You wake in your bed and you believe whatever you want to believe.', 'wporg'); ?>
+	</p>
+	<p class="description">
+		<?php esc_html_e('You take the red pill and you stay in Wonderland and I show you how deep the rabbit-hole goes.', 'wporg'); ?>
+	</p>
+	<?php
+    }
+
+    public function wporg_options_page_html()
+    {
+        // check user capabilities
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+
+        // add error/update messages
+
+        // check if the user have submitted the settings
+        // WordPress will add the "settings-updated" $_GET parameter to the url
+        if (isset($_GET['settings-updated'])) {
+            // add settings saved message with the class of "updated"
+            add_settings_error('wporg_messages', 'wporg_message', __('Settings Saved', 'wporg'), 'updated');
+        }
+
+        // show error/update messages
+        settings_errors('wporg_messages');
+        ?>
+	<div class="wrap">
+		<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
+		<form action="options.php" method="post">
+			<?php
+                // output security fields for the registered setting "wporg"
+                settings_fields('wporg');
+        // output setting sections and their fields
+        // (sections are registered for "wporg", each field is registered to a specific section)
+        do_settings_sections('wporg');
+        // output save settings button
+        submit_button('Save Settings');
+        ?>
+		</form>
+	</div>
+	<?php
     }
 }

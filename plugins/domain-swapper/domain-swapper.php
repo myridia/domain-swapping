@@ -48,11 +48,18 @@ register_activation_hook(__FILE__, ['WP\Ds\Main\Class01', 'activate']);
 register_deactivation_hook(__FILE__, ['WP\Ds\Main\Class01', 'deactivate']);
 
 // Register to start the Plugin
-add_action('init', 'wp_ds_plugin_init');
+add_action('init', 'wp_ds_plugin_init', 80);
+add_action('admin_init', 'wp_ds_plugin_admin_init', 99);
 
 /*
   Start the the Plugin
 */
+function wp_ds_plugin_admin_init()
+{
+    $plugin = new Class01();
+    $plugin->register_settings();
+}
+
 function wp_ds_plugin_init()
 {
     $plugin = new Class01();
@@ -123,7 +130,7 @@ function wporg_settings_init()
 /*
  * Register our wporg_settings_init to the admin_init action hook.
  */
-add_action('admin_init', 'wporg_settings_init');
+// add_action('admin_init', 'wporg_settings_init');
 
 /**
  * Custom option and settings:
@@ -177,28 +184,6 @@ function wporg_field_pill_cb($args)
 	<?php
 }
 
-/**
- * Add the top level menu page.
- */
-function wporg_options_page()
-{
-    add_menu_page(
-        'WPOrg',
-        'WPOrg Options',
-        'manage_options',
-        'wporg',
-        'wporg_options_page_html'
-    );
-}
-
-/*
- * Register our wporg_options_page to the admin_menu action hook.
- */
-add_action('admin_menu', 'wporg_options_page');
-
-/**
- * Top level menu callback function.
- */
 function wporg_options_page_html()
 {
     // check user capabilities
