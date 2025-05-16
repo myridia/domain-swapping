@@ -45,13 +45,14 @@ class Class01
             esc_html__('Domain Swapper', 'domain_swapper'),
             'edit_pages',
             'domain-swapper',
-            'wporg_options_page_html',
+            [$this, 'wporg_options_page_html'],
             99
         );
     }
 
     /*
-      Add Menu Setting
+      Add an API based Setting Page
+      // https://developer.wordpress.org/plugins/settings/custom-settings-page/
     */
     public function register_settings()
     {
