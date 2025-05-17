@@ -29,8 +29,8 @@ services:
     healthcheck:
       test: "/usr/bin/mysql --user=exampleuser --password=examplepass --execute \"SHOW DATABASES;\""
       interval: 3s
-      timeout: 1s
-      retries: 5
+      timeout: 10s
+      retries: 10
     volumes:
       - db:/var/lib/mysql
     networks:      
