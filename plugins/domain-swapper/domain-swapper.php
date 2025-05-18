@@ -83,8 +83,8 @@ function m_make_constants($name, $value, $pdata)
 {
     $prefix = $pdata['constant_prefix'];
     $c_name = $prefix.$name;
-    // echo $c_name.'<br>';
-    // echo $value.'<br>';
+    echo $c_name.'<br>';
+    echo $value.'<br>';
     if (!defined($c_name)) {
         define($c_name, $value);
     }

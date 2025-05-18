@@ -43,7 +43,7 @@ class Class01
             'options-general.php',
             esc_html__('Domain Swapper', 'domain_swapper'),
             esc_html__('Domain Swapper', 'domain_swapper'),
-            'edit_pages',
+            'manage_options',
             'domain-swapper',
             [$this, 'wporg_options_page_html'],
             99
@@ -60,14 +60,14 @@ class Class01
 
         add_settings_section(
             'wporg_section_developers',
-            __('The Matrix has you.', 'wporg'),
+            __('Settings', WPDS_TEXT),
             [$this, 'callback'],
             'wporg'
         );
 
         add_settings_field(
             'wporg_field_pill',
-            __('Pill', 'wporg'),
+            __('Pill', WPDS_TEXT),
             [$this, 'field_pill_cb'],
             'wporg',
             'wporg_section_developers',
