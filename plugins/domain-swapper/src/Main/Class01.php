@@ -67,39 +67,70 @@ class Class01
         );
         // https://developer.wordpress.org/reference/functions/add_settings_field/
         add_settings_field(
-            'activate',
-            __('Activate', WPDS_TEXT),
-            [$this, 'field_active'],
+            'key',
+            __('Pro Key:', WPDS_TEXT),
+            [$this, 'field_key'],
             WPDS_OPTION,
             'section1',
             [
-                'label_for' => 'wporg_field_active',
-                'class' => 'wporg_row',
-                'wporg_custom_data' => 'custom',
+                'label_for' => 'plugin_domain_swapper[key]',
             ]
         );
+
+        add_settings_field(
+            'activate',
+            __('Activate:', WPDS_TEXT),
+            [$this, 'field_activate'],
+            WPDS_OPTION,
+            'section1',
+            [
+                'label_for' => 'plugin_domain_swapper[activate]',
+            ]
+        );
+
         add_settings_field(
             'include',
-            __('Include Domains', WPDS_TEXT),
+            __('Included Domains: ', WPDS_TEXT),
             [$this, 'field_include'],
             WPDS_OPTION,
             'section1',
             [
-                'label_for' => 'wporg_field_include',
-                'class' => 'wporg_row',
-                'wporg_custom_data' => 'custom',
+                'label_for' => 'plugin_domain_swapper[include][]',
             ]
         );
     }
 
+    public function is_valid_domain_name($domain_name)
+    {
+        $ok = preg_match("/^([a-z\d](-*[a-z\d])*)(\.([a-z\d](-*[a-z\d])*))*$/i", $domain_name) // valid chars check
+                && preg_match('/^.{1,253}$/', $domain_name) // overall length check
+                && preg_match("/^[^\.]{1,63}(\.[^\.]{1,63})*$/", $domain_name); // length of each label
+        if ('localhost' != $domain_name) {
+            if (false == strpos($domain_name, '.')) {
+                $ok = false;
+            }
+        }
+
+        return $ok;
+    }
+
     public function validate($input)
     {
-        // $newinput['api_key'] = trim( $input['api_key'] );
-        // if ( ! preg_match( '/^[a-z0-9]{32}$/i', $newinput['api_key'] ) ) {
-        // $newinput['api_key'] = '';
-        // }
+        $newinput = $input;
+        $newinput['include'] = [];
+        if (isset($input['include'])) {
+            if ('array' == gettype($input['include'])) {
+                foreach ($input['include'] as $i) {
+                    if (true == $this->is_valid_domain_name($i)) {
+                        $newinput['include'][] = $i;
+                    } else {
+                        $newinput['include'][] = '';
+                    }
+                }
+            }
+        }
 
-        return $input;
+        return $newinput;
     }
 
     public function callback()
@@ -107,22 +138,41 @@ class Class01
         esc_html_e('Settings Saved to ', WPDS_TEXT);
     }
 
-    public function field_active($args)
+    public function field_activate($args)
     {
-        $options = get_option(WPDS_OPTION);
-        ?>
-        <input type="checkbox" id="<?php echo esc_attr($args['label_for']); ?>" name="<?php echo esc_attr($args['label_for']); ?>" />
+        $o = get_option(WPDS_OPTION);
+        $checked = '';
+        if (isset($o['activate'])) {
+            if ('on' == $o['activate']) {
+                $checked = 'checked=checked';
+            }
+        }
+        echo "<input type='checkbox' id='key' name='{$args['label_for']}'  {$checked} />";
+    }
 
-	<?php
+    public function field_key($args)
+    {
+        $o = get_option(WPDS_OPTION);
+        $key = '';
+        if (isset($o['key'])) {
+            $key = $o['key'];
+        }
+        echo "<input id='key' name='{$args['label_for']}' type='text' value='{$key}' />";
     }
 
     public function field_include($args)
     {
         $o = get_option(WPDS_OPTION);
-        foreach ($o['include'] as $i) {
-            ?>
-        <input type="text" id="<?php echo esc_attr($args['label_for']); ?>" name="<?php echo esc_attr($args['label_for']); ?>" value="<?php echo $i; ?>" /><br>
-  	   <?php
+        if (isset($o['include'])) {
+            foreach ($o['include'] as $i) {
+                echo "<input id='key' name='{$args['label_for']}' type='text' value='{$i}'  /><br>";
+            }
+        } else {
+            /* example 1 */
+
+            for ($i = 1; $i <= 5; ++$i) {
+                echo "<input id='key' name='{$args['label_for']}' type='text'  /><br>";
+            }
         }
     }
 
