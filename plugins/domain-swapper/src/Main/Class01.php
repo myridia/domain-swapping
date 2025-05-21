@@ -56,7 +56,7 @@ class Class01
     */
     public function register_settings()
     {
-        register_setting(WPDS_OPTION, WPDS_OPTION);
+        register_setting(WPDS_OPTION, WPDS_OPTION, [$this, 'validate']);
 
         // https://developer.wordpress.org/reference/functions/add_settings_section/
         add_settings_section(
@@ -92,6 +92,16 @@ class Class01
         );
     }
 
+    public function validate($input)
+    {
+        // $newinput['api_key'] = trim( $input['api_key'] );
+        // if ( ! preg_match( '/^[a-z0-9]{32}$/i', $newinput['api_key'] ) ) {
+        // $newinput['api_key'] = '';
+        // }
+
+        return $input;
+    }
+
     public function callback()
     {
         esc_html_e('Settings Saved to ', WPDS_TEXT);
@@ -111,7 +121,7 @@ class Class01
         $o = get_option(WPDS_OPTION);
         foreach ($o['include'] as $i) {
             ?>
-        <input type="text" id="<?php echo esc_attr($args['label_for']); ?>" name="<?php echo esc_attr($args['label_for']); ?>" value="<?php echo $i; ?>" />
+        <input type="text" id="<?php echo esc_attr($args['label_for']); ?>" name="<?php echo esc_attr($args['label_for']); ?>" value="<?php echo $i; ?>" /><br>
   	   <?php
         }
     }
