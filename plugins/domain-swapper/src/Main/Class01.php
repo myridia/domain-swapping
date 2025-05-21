@@ -9,7 +9,7 @@ class Class01
     public function __construct()
     {
         $this->options = [
-            'include' => [],
+            'include' => ['ww1.app.local', 'ww2.app.local', 'ww3.app.local', 'foo.bar.local'],
         ];
     }
 
@@ -19,7 +19,7 @@ class Class01
     public static function activate()
     {
         $options = [
-            'include' => [],
+            'include' => ['ww1.app.local', 'ww2.app.local', 'ww3.app.local', 'foo.bar.local'],
         ];
         if (false == get_option(WPDS_OPTION)) {
             update_option(WPDS_OPTION, $options);
@@ -56,23 +56,36 @@ class Class01
     */
     public function register_settings()
     {
-        register_setting('wporg', 'wporg_options');
+        register_setting(WPDS_OPTION, WPDS_OPTION);
 
+        // https://developer.wordpress.org/reference/functions/add_settings_section/
         add_settings_section(
-            'wporg_section_developers',
+            'section1',
             __('Settings', WPDS_TEXT),
             [$this, 'callback'],
-            'wporg'
+            WPDS_OPTION
         );
-
+        // https://developer.wordpress.org/reference/functions/add_settings_field/
         add_settings_field(
-            'wporg_field_pill',
-            __('Pill', WPDS_TEXT),
-            [$this, 'field_pill_cb'],
-            'wporg',
-            'wporg_section_developers',
+            'activate',
+            __('Activate', WPDS_TEXT),
+            [$this, 'field_active'],
+            WPDS_OPTION,
+            'section1',
             [
-                'label_for' => 'wporg_field_pill',
+                'label_for' => 'wporg_field_active',
+                'class' => 'wporg_row',
+                'wporg_custom_data' => 'custom',
+            ]
+        );
+        add_settings_field(
+            'include',
+            __('Include Domains', WPDS_TEXT),
+            [$this, 'field_include'],
+            WPDS_OPTION,
+            'section1',
+            [
+                'label_for' => 'wporg_field_include',
                 'class' => 'wporg_row',
                 'wporg_custom_data' => 'custom',
             ]
@@ -81,63 +94,45 @@ class Class01
 
     public function callback()
     {
-        esc_html_e('Page limit is 10', 'text-domain');
+        esc_html_e('Settings Saved to ', WPDS_TEXT);
     }
 
-    public function field_pill_cb($args)
+    public function field_active($args)
     {
-        // Get the value of the setting we've registered with register_setting()
-        $options = get_option('wporg_options');
+        $options = get_option(WPDS_OPTION);
         ?>
-	<select
-			id="<?php echo esc_attr($args['label_for']); ?>"
-			data-custom="<?php echo esc_attr($args['wporg_custom_data']); ?>"
-			name="wporg_options[<?php echo esc_attr($args['label_for']); ?>]">
-		<option value="red" <?php echo isset($options[$args['label_for']]) ? (selected($options[$args['label_for']], 'red', false)) : (''); ?>>
-			<?php esc_html_e('red pill', 'wporg'); ?>
-		</option>
- 		<option value="blue" <?php echo isset($options[$args['label_for']]) ? (selected($options[$args['label_for']], 'blue', false)) : (''); ?>>
-			<?php esc_html_e('blue pill', 'wporg'); ?>
-		</option>
-	</select>
-	<p class="description">
-		<?php esc_html_e('You take the blue pill and the story ends. You wake in your bed and you believe whatever you want to believe.', 'wporg'); ?>
-	</p>
-	<p class="description">
-		<?php esc_html_e('You take the red pill and you stay in Wonderland and I show you how deep the rabbit-hole goes.', 'wporg'); ?>
-	</p>
+        <input type="checkbox" id="<?php echo esc_attr($args['label_for']); ?>" name="<?php echo esc_attr($args['label_for']); ?>" />
+
 	<?php
+    }
+
+    public function field_include($args)
+    {
+        $o = get_option(WPDS_OPTION);
+        foreach ($o['include'] as $i) {
+            ?>
+        <input type="text" id="<?php echo esc_attr($args['label_for']); ?>" name="<?php echo esc_attr($args['label_for']); ?>" value="<?php echo $i; ?>" />
+  	   <?php
+        }
     }
 
     public function wporg_options_page_html()
     {
-        // check user capabilities
         if (!current_user_can('manage_options')) {
             return;
         }
-
-        // add error/update messages
-
-        // check if the user have submitted the settings
-        // WordPress will add the "settings-updated" $_GET parameter to the url
         if (isset($_GET['settings-updated'])) {
-            // add settings saved message with the class of "updated"
-            add_settings_error('wporg_messages', 'wporg_message', __('Settings Saved', 'wporg'), 'updated');
+            add_settings_error('wporg_messages', 'wporg_message', __('Settings saved successfully to the database option settings:  '.WPDS_OPTION, WPDS_TEXT), 'updated');
         }
-
-        // show error/update messages
         settings_errors('wporg_messages');
         ?>
 	<div class="wrap">
 		<h1><?php echo esc_html(get_admin_page_title()); ?></h1>
 		<form action="options.php" method="post">
 			<?php
-                // output security fields for the registered setting "wporg"
-                settings_fields('wporg');
-        // output setting sections and their fields
-        // (sections are registered for "wporg", each field is registered to a specific section)
-        do_settings_sections('wporg');
-        // output save settings button
+
+        settings_fields(WPDS_OPTION);
+        do_settings_sections(WPDS_OPTION);
         submit_button('Save Settings');
         ?>
 		</form>
