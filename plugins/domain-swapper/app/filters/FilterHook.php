@@ -12,9 +12,6 @@ class FilterHook
 
     public function run()
     {
-        // add_action('registered_taxonomy', array($this, 'wpdsbuffer_start_relative_url'));
-        // add_action('shutdown', array($this, 'wpdsbuffer_end_relative_url'));
-
         add_filter('pre_option_home', [$this, 'wpdscustom_siteurl']);
         add_filter('pre_option_siteurl', [$this, 'wpdscustom_siteurl']);
         add_filter('option_home', [$this, 'wpdscustom_content_url']);
