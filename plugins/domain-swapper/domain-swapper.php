@@ -25,6 +25,7 @@
 defined('ABSPATH') or exit('Something went wrong');
 
 use WP\Ds\Main\Class01;
+use WP\Ds\Main\Class02;
 
 // get the metadata from the plugin header
 $m_plugin_data = get_file_data(__FILE__, ['name' => 'Plugin Name', 'version' => 'Version', 'text_domain' => 'Text Domain', 'constant_prefix' => 'Constant Prefix', 'prefix' => 'Prefix', 'option_key' => 'Option_key']);
@@ -65,6 +66,9 @@ function wp_ds_plugin_init()
 {
     $plugin = new Class01();
     $plugin->add_menu_setting();
+
+    $plugin2 = new Class02();
+    // $plugin2->add_menu_setting();
 }
 
 /*
@@ -84,7 +88,7 @@ function m_make_constants($name, $value, $pdata)
 {
     $prefix = $pdata['constant_prefix'];
     $c_name = $prefix.$name;
-    // /echo $c_name.' : '.$value.' <br>';
+    // echo $c_name.' : '.$value.' <br>';
     if (!defined($c_name)) {
         define($c_name, $value);
     }

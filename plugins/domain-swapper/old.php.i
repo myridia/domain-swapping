@@ -1,45 +1,7 @@
 <?php
-/**
- * Hard Fork from https://wordpress.org/plugins/host-changer/
- *
- * @link              https://domain-swapping.myridia.com
- * @since             1.0.0
- * @package           Domain-swapping
- *
- * @wordpress-plugin
- * Plugin Name: Domain swapping - Use and swap multiple domains with one WordPress Site 
- * Plugin URI: https://wordpress.org/plugins/domain-swapping 
- * Description: domain_swapping to access same WordPress site from different domains.
- * Version: 1.0.0
- * Author: Myridia Company
- * License: GPL-2.0+
- * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: domain-swapping
- * Domain Path: /languages
- * Author URI: http://myridia.com
- * Update URL: https://github.com/myridia/domain-swapping 
  **/
 
 
-defined('ABSPATH') or die('Something went wrong');
-
-/*
-require_once __DIR__ . '/app/base/Activate.php';
-require_once __DIR__ . '/app/base/Deactivate.php';
-require_once __DIR__ . '/app/base/Base.php';
-require_once __DIR__ . '/app/filters/Filterhook.php';
-
-use Wpds\App\base\Activate;
-use Wpds\App\base\Deactivate;
-use Wpds\App\base\Base;
-use Wpds\App\filters\FilterHook;
-
-
-}
-
-
-register_activation_hook(__FILE__, 'activate_wpds_plugin');
-//register_deactivation_hook(__FILE__, 'deactivate_wpds_plugin');
 
 
 (new WPDSBase())->register();
@@ -82,4 +44,4 @@ if(!empty($options1['enableds']) && $options1['enableds'] === 'on' )
     }
 
 }
-*/
+
