@@ -58,6 +58,7 @@ function wp_ds_plugin_admin_init()
 {
     $plugin = new Class01();
     $plugin->register_settings();
+    $plugin->key();
 }
 
 function wp_ds_plugin_init()

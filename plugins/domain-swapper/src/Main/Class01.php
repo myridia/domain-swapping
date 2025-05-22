@@ -35,6 +35,22 @@ class Class01
     }
 
     /*
+      Pro Key test
+      //https://www.php.net/manual/en/function.sodium-crypto-sign.php
+    */
+    public static function key()
+    {
+        $sign_pair = sodium_crypto_sign_keypair();
+        $sign_secret = sodium_crypto_sign_secretkey($sign_pair);
+        $sign_public = sodium_crypto_sign_publickey($sign_pair);
+        $message = 'Hello';
+        $message_signed = sodium_crypto_sign($message, $sign_secret);
+        $smessage = sodium_crypto_sign_open($message_signed, $sign_public);
+        // echo $smessage.'<br>';
+        // echo $message_signed.'<br>';
+    }
+
+    /*
       Add Menu Setting
     */
     public function add_menu_setting()
