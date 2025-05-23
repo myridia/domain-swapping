@@ -51,14 +51,14 @@ class Class02
 
     public function swap_relative_url($buffer)
     {
-        $home_url = esc_url(home_url('/'));
-        $home_url_relative = wp_make_link_relative($home_url);
+        $url = esc_url(home_url('/'));
+        $url_relative = wp_make_link_relative($url);
 
-        $home_url_escaped = str_replace('/', '\/', $home_url);
-        $home_url_escaped_relative = str_replace('/', '\/', $home_url_relative);
+        $url_escaped = str_replace('/', '\/', $url);
+        $url_escaped_relative = str_replace('/', '\/', $url_relative);
 
-        $buffer = str_replace($home_url, $home_url_relative, $buffer);
-        $buffer = str_replace($home_url_escaped, $home_url_escaped_relative, $buffer);
+        $buffer = str_replace($url, $url_relative, $buffer);
+        $buffer = str_replace($url_escaped, $url_escaped_relative, $buffer);
 
         return $buffer;
     }
@@ -109,25 +109,6 @@ class Class02
         return $url;
     }
 
-    private function get_new_siteurl()
-    {
-        $new_domain = '';
-        if (isset($_SERVER['HTTP_HOST'])) {
-            if ('' != $_SERVER['HTTP_HOST']) {
-                $new_domain = $_SERVER['HTTP_HOST'];
-            }
-        } elseif (isset($_SERVER['SERVER_NAME'])) {
-            if ('' != $_SERVER['SERVER_NAME']) {
-                $new_domain = $_SERVER['SERVER_NAME'];
-            }
-        }
-        if (in_array($new_domain, $this->domains)) {
-            return 'https://'.$new_domain;
-        } else {
-            return $this->siteurl;
-        }
-    }
-
     public function swap_siteurl()
     {
         if ('' != $this->new_siteurl) {
@@ -143,6 +124,25 @@ class Class02
 
             // return WPDS_CUSTOM_REQUEST_URL;
             return $this->new_siteurl;
+        } else {
+            return $this->siteurl;
+        }
+    }
+
+    private function get_new_siteurl()
+    {
+        $new_domain = '';
+        if (isset($_SERVER['HTTP_HOST'])) {
+            if ('' != $_SERVER['HTTP_HOST']) {
+                $new_domain = $_SERVER['HTTP_HOST'];
+            }
+        } elseif (isset($_SERVER['SERVER_NAME'])) {
+            if ('' != $_SERVER['SERVER_NAME']) {
+                $new_domain = $_SERVER['SERVER_NAME'];
+            }
+        }
+        if (in_array($new_domain, $this->domains)) {
+            return 'https://'.$new_domain;
         } else {
             return $this->siteurl;
         }
