@@ -72,18 +72,18 @@ class Class02
         return $url;
     }
 
-    public function swap_featured_img_url($src)
+    public function swap_featured_img_url($url)
     {
-        $src = str_replace($this->siteurl, $this->new_siteurl, $src);
+        $src = str_replace($this->siteurl, $this->new_siteurl, $url);
 
-        return $src;
+        return $url;
     }
 
-    public function swap_style_uri($stylesheet_dir_uri)
+    public function swap_style_uri($url)
     {
-        $stylesheet_dir_uri = $this->swap_content_url($stylesheet_dir_uri);
+        $url = $this->swap_content_url($url);
 
-        return $stylesheet_dir_uri;
+        return $url;
     }
 
     public function swap_content_url($url)
@@ -99,13 +99,12 @@ class Class02
             }
 
             if ($host == $this->siteurl) {
-                // var_dump($this->siteurl);
-                // var_dump($this->new_siteurl);
                 $url = str_replace($this->siteurl, $this->new_siteurl, $url);
 
                 return $url;
             }
         }
+        $url = str_replace('http://', 'https://', $url);
 
         return $url;
     }
@@ -131,8 +130,6 @@ class Class02
 
     public function swap_siteurl()
     {
-        // var_dump($this->new_siteurl);
-        // var_dump($this->siteurl);
         if ('' != $this->new_siteurl) {
             if (!defined('WPDS_CUSTOM_REQUEST_URL')) {
                 define('WPDS_CUSTOM_REQUEST_URL', $this->new_siteurl);
