@@ -37,6 +37,13 @@ class Class02
         add_filter('template_directory_uri', [$this, 'swap_style_uri']);
         add_filter('upload_dir', [$this, 'swap_featured_img_url']);
         add_filter('wp_get_attachment_url', [$this, 'swap_attachment_url']);
+
+        add_filter( 'wp_update_https_url', [$this,'update_url_to_https'] );        
+    }
+
+
+    public function update_url_to_https( $url ) {
+      return str_replace( 'http://', 'https://', $url );
     }
 
     public function swap_start_relative_url()
