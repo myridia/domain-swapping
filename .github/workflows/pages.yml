@@ -19,14 +19,11 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-
       - name: Checkout code
         uses: actions/checkout@v2   
       - name: apt_get_install_npm
         run: |
             sudo apt-get install wget
-            
-
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

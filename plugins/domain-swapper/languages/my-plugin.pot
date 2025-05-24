@@ -1,0 +1,45 @@
+# Copyright (C) 2025 Myridia Company
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: Domain swapper - Use and change/swap multiple domains with one WordPress Site 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/domain-swapper\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-05-14T11:49:42+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: domain_swapper\n"
+
+#. Plugin Name of the plugin
+#: domain-swapper.php
+msgid "Domain swapper - Use and change/swap multiple domains with one WordPress Site"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: domain-swapper.php
+msgid "https://wordpress.org/plugins/domain-swapper"
+msgstr ""
+
+#. Description of the plugin
+#: domain-swapper.php
+msgid "domain_swapper to access same WordPress site from different domains."
+msgstr ""
+
+#. Author of the plugin
+#: domain-swapper.php
+msgid "Myridia Company"
+msgstr ""
+
+#. Author URI of the plugin
+#: domain-swapper.php
+msgid "http://domain-swapper.myridia.com"
+msgstr ""
+
+#: src/Main/Class01.php:32
+#: src/Main/Class01.php:33
+msgid "Domain Swapper"
+msgstr ""

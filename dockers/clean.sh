@@ -1,7 +1,8 @@
 #!/bin/bash
 
 docker rm --force `docker ps -qa`
-docker volume prune -f
+docker volume rm $(docker volume ls -q --filter dangling=true)
+
 
 if [ "$1" == "all" ] || [ $# -gt 1 ]; then
   echo "clean all including images"

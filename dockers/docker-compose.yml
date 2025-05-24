@@ -1,5 +1,4 @@
 services:
-
   wordpress:
     image: wordpress
     container_name: wp    
@@ -14,8 +13,10 @@ services:
       WORDPRESS_DEBUG: 1
     volumes:
       - wordpress:/var/www/html
-      - ../plugins/domain-swapper:/var/www/html/wp-content/plugins/domain-swapper      
-
+      - ../plugins/domain-swapper:/var/www/html/wp-content/plugins/domain-swapper
+    networks:
+      workgroup:
+        ipv4_address: "10.5.0.2"  
   db:
     image: mysql:8.0
     container_name: wp_mysql        
@@ -25,9 +26,43 @@ services:
       MYSQL_USER: exampleuser
       MYSQL_PASSWORD: examplepass
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    healthcheck:
+      test: "/usr/bin/mysql --user=exampleuser --password=examplepass --execute \"SHOW DATABASES;\""
+      interval: 3s
+      timeout: 10s
+      retries: 10
     volumes:
       - db:/var/lib/mysql
-
+    networks:      
+      workgroup:
+        ipv4_address: "10.5.0.3"
+      
+  wpcli:
+    image: wordpress:cli    
+    container_name: wpcli
+    depends_on:
+      db:
+        condition: service_healthy
+    command: >
+      /bin/sh -c '
+      sleep 3;
+      wp core install --path="/var/www/html" --url="http://localhost:8080" --title="test" --admin_user=test --admin_password=test --admin_email=test@myridia.com --allow-root; tail -F anything '
+    user: root 
+    links:
+      - db:mysql    
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb        
+    volumes:
+      - wordpress:/var/www/html
+      - ../plugins/domain-swapper:/var/www/html/wp-content/plugins/domain-swapper                
+    #working_dir: /var/www/html/wp-content/plugins/domain-swapper
+    networks:
+      workgroup:
+        ipv4_address: "10.5.0.4"      
+    
   ha_proxy:
     container_name: ha_proxy    
     image: haproxy:latest
@@ -38,8 +73,11 @@ services:
       - "443:443" 
     volumes:
       - "./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg"
-      - "./certs/:/opt/certs/"      
-
+      - "./certs/:/opt/certs/"
+    networks:      
+      workgroup:
+        ipv4_address: "10.5.0.5"  
+      
   phpmyadmin:
     container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin
@@ -49,7 +87,17 @@ services:
       PMA_HOST: db
       PMA_USER: exampleuser
       PMA_PASSWORD: examplepass
-      
+    networks:      
+      workgroup:
+        ipv4_address: "10.5.0.6"        
 volumes:
   wordpress:
   db:
+    
+networks:
+  workgroup:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1

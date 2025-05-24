@@ -20,13 +20,15 @@
  * Update URL: https://github.com/myridia/domain-swapper
  * Constant Prefix: WPDS_
  * Prefix: wpds_
+ * Option_key: plugin_domain_swapper
  **/
 defined('ABSPATH') or exit('Something went wrong');
 
 use WP\Ds\Main\Class01;
+use WP\Ds\Main\Class02;
 
 // get the metadata from the plugin header
-$m_plugin_data = get_file_data(__FILE__, ['name' => 'Plugin Name', 'version' => 'Version', 'text_domain' => 'Text Domain', 'constant_prefix' => 'Constant Prefix', 'prefix' => 'Prefix']);
+$m_plugin_data = get_file_data(__FILE__, ['name' => 'Plugin Name', 'version' => 'Version', 'text_domain' => 'Text Domain', 'constant_prefix' => 'Constant Prefix', 'prefix' => 'Prefix', 'option_key' => 'Option_key']);
 
 //  Define Plugin specific Constants
 m_make_constants('NAME', $m_plugin_data['text_domain'], $m_plugin_data);
@@ -40,19 +42,33 @@ m_make_constants('BASENAME', dirname(plugin_basename(__FILE__)), $m_plugin_data)
 m_make_constants('VERSION', $m_plugin_data['version'], $m_plugin_data);
 m_make_constants('TEXT', $m_plugin_data['text_domain'], $m_plugin_data);
 m_make_constants('PREFIX', $m_plugin_data['prefix'], $m_plugin_data);
-m_make_constants('SETTINGS', $m_plugin_data['prefix'], $m_plugin_data);
+m_make_constants('OPTION', $m_plugin_data['option_key'], $m_plugin_data);
 
-// Default Plugin activate and deactivate hooks
+// Default Plugin activate and deactivate hooks, started in static class functions
 register_activation_hook(__FILE__, ['WP\Ds\Main\Class01', 'activate']);
 register_deactivation_hook(__FILE__, ['WP\Ds\Main\Class01', 'deactivate']);
-add_action('init', 'wp_ds_plugin_init');
+
+// Register to start the Plugin
+add_action('init', 'wp_ds_plugin_init', 80);
+add_action('admin_init', 'wp_ds_plugin_admin_init', 99);
+
+/*
+  Start the the Plugin
+*/
+function wp_ds_plugin_admin_init()
+{
+    $plugin = new Class01();
+    $plugin->register_settings();
+    // $plugin->key();
+}
 
 function wp_ds_plugin_init()
 {
     $plugin = new Class01();
-    $plugin->register();
-    // echo "xxxx";
-    // exit;
+    $plugin->add_menu_setting();
+
+    $plugin2 = new Class02();
+    // $plugin2->add_menu_setting();
 }
 
 /*
@@ -67,11 +83,12 @@ spl_autoload_register(function (string $className) {
     require_once $classFile;
 });
 
-// Helper Function to create Constants
+// Helper Function to create all Constants
 function m_make_constants($name, $value, $pdata)
 {
     $prefix = $pdata['constant_prefix'];
     $c_name = $prefix.$name;
+    // echo $c_name.' : '.$value.' <br>';
     if (!defined($c_name)) {
         define($c_name, $value);
     }
